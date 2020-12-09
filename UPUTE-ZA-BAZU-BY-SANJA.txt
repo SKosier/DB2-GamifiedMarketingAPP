@@ -1,0 +1,36 @@
+Raga znaci ovako:
+
+napravila sam User-a i postavila sam bazu na noge
+baza za sada samo ima entity/Table User sa svim atributima
+
+Ostale Entityje koje cemo trebati mozete napraviti po istoj logici kao ja Usera:
+- dodati entity, napraviti njemu odgovarajuci repository u dao paketu, napraviti odgovarajuci interface service 
+i njegovu implementaciju u service.impl paketu 
+
+Postoje dvije baze 
+-> hibernate baza; to je ugradena Springova baza kojoj mozete pristupiti kada u url upisete: 
+http://127.0.0.1:8080/h2-console 
+JDBC: jdbc:h2:mem:testdb
+connect
+
+ta se baza trenutno koristi kao defaultna dok i vi svoje mysql baze ne konfigurirate
+
+-> mysql baza
+svatko od nas mora imati instaliran mysql (npr mozete slijediti one njihove upute an beepu)
+baze nam se moraju zvati kao i ovdje u projektu (buduci da ju svatko koristi lokalno, a nemamo jos deployano negdje na serveru, sto ni ne trebamo)
+u application.properties mozete naci info o tome kako sam ih ja nazvala i kako se zove user koji se prikljucuje na bazu:
+BAZA: gmapp
+User: gmapp_user
+Pass: gmapp_pass
+
+Znaci, kada cete konfigurirati mysql shemu, dodajte bazu GMAPP i napravite Usera gmapp_user kojem cete dati privilegije nad bazom
+Imate tu u tekstu sto da tocno upisete u cmd: https://spring.io/guides/gs/accessing-data-mysql/
+
+jednom kada i vi slozite mysql bazu mozemo maknuti hibernate bazu; ta je prikladna za vrijeme razvoja
+Dodala sam i nju cisto da mozete odma pokrenuti aplikaciju i vidjeti kako radi pa lako onda konfigurirate mysql u meduvremenu
+
+Ja sam vec provjerila i spajanje na bazu (mysql) radi kak treba (ali morate imati napravljenu vec gmapp bazu i gmapp_usera)
+Razred initializer inicijalizira bazu s 4 pocetna Usera, to mozete vidjeti ako prema uputama gore odete u h2-console i upisete (bez navodnika): 
+"select * from user"
+
+Za sada trenutno samo postojei /index.html stranica, ali radim na log-inu 
