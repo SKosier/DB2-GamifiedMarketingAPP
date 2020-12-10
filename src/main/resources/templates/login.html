@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>Log in</title>
+		<link href="css/register.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<body class="center">
+	  <div class="rectangle">
+	  <div class="col-1">
+	  	<h1 class ="heading">
+			Login form
+		</h1>
+	  
+		<form action="login" method="post">
+		  <input class="formLabel" type="text" name="username" placeholder="Username" th:value="${logform.getUsername()}" size="20" autofocus >
+		  	<div th:unless="${!logform.containsError('username')}">
+		   		<p class="error" th:each="err : ${logform.getError('username')}" th:text="${err}"></p>
+		  	</div>
+		
+		  <input class="formLabel" type="password" name="password" placeholder="Password" value="" size="20">
+		  <div th:unless="${!logform.containsError('password')}">
+		   		<p class="error" th:each="err : ${logform.getError('password')}" th:text="${err}"></p>
+		  </div>
+		
+		
+		  <button class="formControls" type="submit" name="method" value="Save">Login</button>
+		  <button class="formControls cancel" type="submit" name="method" value="Cancel">Cancel</button>
+		
+		</form>
+		</div>
+		<div class="col-2">
+			<p class="slika">Jelda da je predobra ova slika?</p>
+<!-- 			<p class="slika" th:text="${session.currentUserName}"></p> -->
+		<img src="../images/pexels-jeremy-bishop-2397645new.jpg" width="360" height="600">
+		
+		<button id="myButton" class="formControls reg-button">Register</button>
+		<script type="text/javascript">
+		    document.getElementById("myButton").onclick = function () {
+		        location.href = "/registration";
+		    };
+		</script>
+		
+		</div>
+	  </div>
+	</body>
+</html>
+

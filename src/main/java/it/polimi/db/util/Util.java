@@ -3,10 +3,13 @@ package it.polimi.db.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.servlet.http.HttpServletRequest;
+
+import it.polimi.db.entity.User;
+
 
 /**
  * Helper methods
- *
  */
 public class Util {
 
@@ -48,5 +51,11 @@ public class Util {
 		}
 
 		return sb.toString().toLowerCase();
+	}
+	
+	public static void setSessionAttributes(HttpServletRequest req, User user) {
+		req.getSession().setAttribute("currentUserId", user.getId());
+		req.getSession().setAttribute("currentUserName", user.getUsername());
+	//	req.getSession().setAttribute("isAdministrator", user.getUserPrivilege() == UserType.ADMINISTRATOR);
 	}
 }

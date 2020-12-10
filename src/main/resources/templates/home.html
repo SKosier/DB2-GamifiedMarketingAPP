@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="css/home.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+
+	<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
+	<a href="/logout">Logout</a>
+
+</body>
+</html>

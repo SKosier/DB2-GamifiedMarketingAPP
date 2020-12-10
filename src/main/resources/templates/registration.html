@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>Registration</title>
+		<link href="css/register.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<body class="center">
+	  <div class="rectangle">
+	  <div class="col-1">
+  		<h1 class ="heading">
+			Registration form
+		</h1>
+  		
+		<form action="registration" method="post">
+		  <input class="formLabel" type="text" name="username" placeholder="Username" th:value="${regform.getUsername()}" size="20" autofocus/>
+			<div th:unless="${!regform.containsError('username')}">
+		   		<p class="error" th:each="err : ${regform.getError('username')}" th:text="${err}"></p>
+		   </div>
+		
+		 
+	  	<input class="formLabel" type="text" name="email" placeholder="Email" th:value="${regform.getEmail()}" size="20">
+		  	<div th:unless="${!regform.containsError('email')}">
+		   		<p class="error" th:each="err : ${regform.getError('email')}" th:text="${err}"></p>
+		   </div>
+    	
+		  <input class="formLabel" type="password" name="password" placeholder="Password" value="" size="20">
+		  <div th:unless="${!regform.containsError('password')}">
+		   		<p class="error" th:each="err : ${regform.getError('password')}" th:text="${err}"></p>
+		  </div>
+		
+		  <button class="formControls" type="submit" name="method" value="Save">Register</button>
+		  <button class="formControls cancel" type="submit" name="method" value="Cancel">Cancel</button>
+		</form>
+		</div>
+		<div class="col-2">
+		<p class="slika"> z-index: 1010101010</p>
+		<img src="../images/pexels-jeremy-bishop-2397645new.jpg" width="360" height="600">
+		</div>
+	  </div>
+	</body>
+</html>
+
