@@ -35,8 +35,17 @@
 		</form>
 		</div>
 		<div class="col-2">
-		<p class="slika"> z-index: 1010101010</p>
-		<img src="../images/pexels-jeremy-bishop-2397645new.jpg" width="360" height="600">
+			<p class= "title2">Already a member?</p>
+			<p class= "description">Log in and access questionnaire of the day!</p>
+<!-- 			<p class="slika" th:text="${session.currentUserName}"></p> -->
+		
+		<img src="../images/pexels-jannet-serhan-2822949.jpg" width="360" height="600">
+		<button id="myButton" class="formControls reg-button">Log in</button>
+		<script type="text/javascript">
+		    document.getElementById("myButton").onclick = function () {
+		        location.href = "/login";
+		    };
+		</script>
 		</div>
 	  </div>
 	</body>
