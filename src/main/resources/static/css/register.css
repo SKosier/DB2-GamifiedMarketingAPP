@@ -156,9 +156,10 @@ form {
 }
 
 .reg-button {
-	position: absolute;
+	position: relative;
 	bottom: 22%;
 	margin-left: 35%;
+	margin-right: 35%;
 	width: 150px;
 	height: 40px;
 	padding: 10px;
