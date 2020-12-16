@@ -1,10 +1,16 @@
 package it.polimi.db.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -13,6 +19,7 @@ import javax.validation.constraints.Size;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="user_id")
 	private Integer id;
 
 	@Column(nullable = false)
@@ -26,6 +33,10 @@ public class User {
 	@Column(nullable = false)
 	private String passwordHash;
 
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE}, mappedBy = "participants")
+	private Set<Questionnaire> questionnaires = new HashSet<>(); // na kojima sudjeluje
+	
+	//***************************************************
 	public Integer getId() {
 		return id;
 	}

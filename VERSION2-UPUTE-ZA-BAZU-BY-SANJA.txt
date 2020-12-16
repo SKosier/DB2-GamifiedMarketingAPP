@@ -33,4 +33,15 @@ Ja sam vec provjerila i spajanje na bazu (mysql) radi kak treba (ali morate imat
 Razred initializer inicijalizira bazu s 4 pocetna Usera, to mozete vidjeti ako prema uputama gore odete u h2-console i upisete (bez navodnika): 
 "select * from user"
 
-Za sada trenutno samo postojei /index.html stranica, ali radim na log-inu 
+Za sada trenutno samo postoje /index.html stranica, ali radim na log-inu 
+
+
+//*****************************************************************************************************************
+select * from question;
+select * from questionnaire;
+select * from questionnaire_participant;
+select * from questionnaire_questions;
+select * from user;
+
+dodala sam zavisnost user-questionnaire i questionnaire-question
+radim na Questionnaire/creation page-u
