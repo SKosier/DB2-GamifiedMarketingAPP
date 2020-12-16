@@ -45,7 +45,7 @@ public class Initializer {
 
 		String[] list = { "What do you think about this product?", "Would you buy this product?",
 				"Would you recomend this product to your friends?",
-				"Do you think this product is pricey?" };
+				"Do you think this product is pricey?" }; 
 		for (int i = 0; i < list.length; i++) {
 			Question qu = new Question();
 			qu.setQuestion(list[i]);
