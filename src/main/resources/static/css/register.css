@@ -39,6 +39,7 @@
 .col-2 {
 	position: relative;
 	width: 30%;
+	text-align:center;
 	float: left;
 	height: 100%;
 	background-color: white;
@@ -124,6 +125,7 @@ form {
  	font-size: 1cm;	 
 	position: absolute;
 	top: 3%;
+	text-align:center;
 	color: white;
 	margin-left: 3%;
 	margin-right: 3%;
