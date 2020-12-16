@@ -1,7 +1,11 @@
 package it.polimi.db.rest;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,15 +14,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.polimi.db.entity.Question;
 import it.polimi.db.entity.Questionnaire;
 import it.polimi.db.form.QuestionnaireForm;
+import it.polimi.db.service.QuestionnaireService;
 
 @Controller
 @RequestMapping("/creation")
 public class CreationController {
 	
-	//@Autowired
-	//private QuestionnaireService qService;
+	@Autowired
+	private QuestionnaireService questionnaireService;
 	
 	@ModelAttribute("questForm")
 	public QuestionnaireForm populateFeatures() {
@@ -27,42 +33,44 @@ public class CreationController {
 	
 	@GetMapping("")
 	public String create() {
-		return "create";
+		return "creation";
 	}
 	
+	//ADD REDIRECTING TO: "YOU SUCCESSFULLY ADDED A QUESTIONNAIRE"
 	@RequestMapping()
-	public String saveQuestionnaire(@RequestParam("method") String method, final BindingResult bindingResult,
+	public String saveQuestionnaire(@RequestParam("method") String method, final Questionnaire postQues, BindingResult bindingResult,
 			Model model, HttpServletRequest req) {
 
-		if (method.equals("Cancel"))
+		if (method.equals("Cancel")) {
 			return "redirect:/home";
-
-		QuestionnaireForm lf = new QuestionnaireForm();
-		lf.popuniIzHttpRequesta(req);
-		lf.validate();
-
-		if (!lf.isValid()) {
-			model.addAttribute("questform", lf);
-			return "create";
 		}
 		
-		Questionnaire quest = fillUpFromFrom(lf);
+		QuestionnaireForm qf = new QuestionnaireForm();
+		qf.popuniIzHttpRequesta(req);
+		qf.validate();
+
+		if (!qf.isValid()) {
+			model.addAttribute("questForm", qf);
+			return "creation";
+		}
 		
-//		Optional<Questionnaire> opQuest = userService.findByUsernameAndPasswordHash(lf.getUsername(), Util.calculateHash(lf.getPassword()));
-//		if(!opUser.isPresent()) {
-//			lf = new LoginForm();
-//			lf.setError("password", "Username or password is incorrect!");
-//			model.addAttribute("logform", lf);
-//			return "login";
-//		}
+		Questionnaire newQuestionnaire = fillFromQF(qf);
+		questionnaireService.createQuestionnaire(newQuestionnaire);
 		
-		//qService.createQuestionnaire(newQuest);
 		model.addAttribute("questform", new QuestionnaireForm());
 		return "redirect:/home";
 	}
 
-	private Questionnaire fillUpFromFrom(QuestionnaireForm lf) {
-		// TODO Auto-generated method stub
-		return null;
+	private Questionnaire fillFromQF(QuestionnaireForm qf) {
+		Questionnaire newQuest = new Questionnaire();
+		Set<Question> questions = new HashSet<>();
+		for(String s : qf.getQuestions()) {
+			Question q = new Question();
+			q.setQuestion(s);
+			
+			questions.add(q);
+		}
+		newQuest.setQuestions(questions);
+		return newQuest;
 	}
 }

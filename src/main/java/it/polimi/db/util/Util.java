@@ -54,6 +54,7 @@ public class Util {
 	}
 	
 	public static void setSessionAttributes(HttpServletRequest req, User user) {
+		req.getSession().setAttribute("currentUser", user);
 		req.getSession().setAttribute("currentUserId", user.getId());
 		req.getSession().setAttribute("currentUserName", user.getUsername());
 	//	req.getSession().setAttribute("isAdministrator", user.getUserPrivilege() == UserType.ADMINISTRATOR);

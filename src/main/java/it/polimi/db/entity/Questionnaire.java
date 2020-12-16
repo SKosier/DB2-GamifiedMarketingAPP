@@ -27,7 +27,7 @@ public class Questionnaire {
 	@JoinTable(name = "questionnaire_participant", joinColumns = @JoinColumn(name = "questionnaire_id"), inverseJoinColumns = @JoinColumn(name = "participant_id", referencedColumnName = "user_id"))
 	private Set<User> participants = new HashSet<>();
 
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "questionnaire_questions", joinColumns = @JoinColumn(name = "questionnaire_id"), inverseJoinColumns = @JoinColumn(name = "q_id", referencedColumnName = "question_id"))
 	private Set<Question> questions = new HashSet<>();
 
