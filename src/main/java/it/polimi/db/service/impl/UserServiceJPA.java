@@ -67,10 +67,17 @@ public class UserServiceJPA implements UserService {
 	public User createUser(User user) {
 		checkIfValid(user);
 		Assert.isNull(user.getId(), "User ID must be null, not: " + user.getId());
-		if (userRepo.countByUsername(user.getUsername()) > 0)
-			throw new RequestDeniedException("User with username " + user.getUsername() + " already exsists!");
-		if (userRepo.countByEmail(user.getEmail()) > 0)
-			throw new RequestDeniedException("User with email " + user.getEmail() + " already exsists!");
+		try {
+			if (userRepo.countByUsername(user.getUsername()) > 0)
+				throw new RequestDeniedException("User with username " + user.getUsername() + " already exsists!\nNot saved in DB!");
+
+			if (userRepo.countByEmail(user.getEmail()) > 0)
+				throw new RequestDeniedException("User with email " + user.getEmail() + " already exsists!\nNot saved in DB!");
+
+		} catch (Exception ex) {
+			System.err.println(ex.getMessage()); //ZA DEBUG ex.printStackTrace();
+			return null;
+		}
 		return userRepo.save(user);
 	}
 
@@ -78,8 +85,15 @@ public class UserServiceJPA implements UserService {
 	public User updateUser(User user) {
 		checkIfValid(user);
 		Integer userId = user.getId();
-		if (!userRepo.existsById(userId))
-			throw new EntityMissingException("User doesn't exists!");
+		try {
+			if (!userRepo.existsById(userId))
+				throw new EntityMissingException("User doesn't exists!");
+
+		} catch (Exception ex) {
+			System.err.println(ex.getMessage()); //ZA DEBUG ex.printStackTrace();
+			return null;
+		}
+		
 		return userRepo.saveAndFlush(user);
 	}
 
