@@ -1,5 +1,6 @@
 package it.polimi.db.entity;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "questionnaire")
@@ -22,6 +25,10 @@ public class Questionnaire {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "questionnaire_id")
 	private Integer id;
+	
+	@Column(name="date")
+	@Temporal(TemporalType.DATE)
+	private Date date; //date for questionnaire
 
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinTable(name = "questionnaire_participant", joinColumns = @JoinColumn(name = "questionnaire_id"), inverseJoinColumns = @JoinColumn(name = "participant_id", referencedColumnName = "user_id"))
@@ -58,5 +65,13 @@ public class Questionnaire {
 
 	public Integer getId() {
 		return id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }

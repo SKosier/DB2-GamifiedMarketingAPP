@@ -1,6 +1,7 @@
 package it.polimi.db.rest;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,9 +49,15 @@ public class CreationController {
 		QuestionnaireForm qf = new QuestionnaireForm();
 		qf.popuniIzHttpRequesta(req);
 		qf.validate();
-
+		
+		Optional<Questionnaire> existing = questionnaireService.findByDate(qf.getDate());
+		if(existing.isPresent()) {
+			qf.setError("date", "Questionnaire for that date already exists");
+		}
+		
 		if (!qf.isValid()) {
 			model.addAttribute("questForm", qf);
+			model.addAttribute("questions", qf.getQuestions());
 			return "creation";
 		}
 		
@@ -71,6 +78,7 @@ public class CreationController {
 			questions.add(q);
 		}
 		newQuest.setQuestions(questions);
+		newQuest.setDate(qf.getDate());
 		return newQuest;
 	}
 }

@@ -1,5 +1,7 @@
 package it.polimi.db;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -61,6 +63,13 @@ public class Initializer {
 			}
 		}
 
+		Date today = new Date(System.currentTimeMillis() + 1000*60*60*24);
+		q1.setDate(today);
+		
+		//not allowed but just to have it in database (the day after tomorrow)
+		today = new Date(System.currentTimeMillis() + 2*1000*60*60*24);
+		q2.setDate(today);
+		
 		questionnaireService.updateQuestionnaire(q1);
 		questionnaireService.updateQuestionnaire(q2);
 	}

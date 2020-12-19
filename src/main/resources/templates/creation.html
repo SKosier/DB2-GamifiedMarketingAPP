@@ -57,30 +57,36 @@
 	<a href="/logout">Logout</a><br><br>
 	
 	<form action="creation" method="post">
-        <b>Add your marketing questions about the product of the day</b><br><br>
+		<p><b>Please select date for the questionnaire: </b><br></p>
+		<div th:if="${questForm.containsError('date')}">
+		   	<p style="color:red;" class="error" th:each="err : ${questForm.getError('date')}" th:text="${err}"></p>
+		</div>
+		
+		  <input type="radio" id="today" name="date" value="0" checked="checked" >
+		  <label for="today">Today</label><br>
+		  <input type="radio" id="tomorrow" name="date" value="1">
+		  <label for="age2">Tomorrow</label><br><br>
 
+        <b>Add your marketing questions about the product of the day</b><br>
 			<div th:if="${questForm.containsError('questions')}">
 		   		<p style="color:red;" class="error" th:each="err : ${questForm.getError('questions')}" th:text="${err}"></p>
-		  	 </div>
-		  	 
-		<br>
-		<div id="testCases">
-			<div th:if="${questForm.getQuestions().isEmpty()}">
-				Q1: <textarea name="input-1" placeholder="Put your question here..." rows="3" cols="80"></textarea>
-			</div>
+		  	 </div><br>
 			
-			<div class="con" th:if="${!questForm.getQuestions().isEmpty()}" th:each="question : ${questions}">
-				Q[[${question.index}]]:  
-				<textarea th:name="'input-' + ${question.index}" placeholder="Question" rows="3" cols="80" th:text="${question.input}"></textarea>
-		       	<input th:if="${question.index > 1}" type="button" value="Remove"/><br>
+			<div id="testCases">
+				<div th:if="${questForm.getQuestions().isEmpty()}">
+					Q1: <textarea name="input-1" placeholder="Put your question here..." rows="3" cols="80"></textarea>
+				</div>
+				
+				<div class="con" th:if="${!questForm.getQuestions().isEmpty()}" th:each="question : ${questions}">
+					Q[[${questions.indexOf(question)+1}]]:  
+					<textarea th:name="'input-' + ${questions.indexOf(question)+1}" placeholder="Question" rows="3" cols="80" th:text="${question}"></textarea>
+			       	<input th:if="${questions.indexOf(question)+1 > 1}" type="button" value="Remove"/><br>
+				</div>
 			</div>
-		</div>
-		<input id="btnAdd" type="button" value="Add" />
-
-		<br><br>
+		<br>
+		<input id="btnAdd" type="button" value="Add" /><br><br>
 		  <button type="submit" name="method" value="Save">Save</button>
 		  <button type="submit" name="method" value="Cancel">Cancel</button>
-		
 		</form>
 </body>
 </html>

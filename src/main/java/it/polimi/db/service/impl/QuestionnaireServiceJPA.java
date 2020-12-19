@@ -1,6 +1,8 @@
 package it.polimi.db.service.impl;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,5 +42,10 @@ public class QuestionnaireServiceJPA implements QuestionnaireService {
 	    if(!questionnaireRepo.existsById(questionnaireId))
 	    	throw new EntityMissingException("Questionnaire doesn't exist!");
 	    return questionnaireRepo.saveAndFlush(questionnaire);
+	}
+
+	@Override
+	public Optional<Questionnaire> findByDate(Date date) {
+		return questionnaireRepo.findByDate(date);
 	}
 }

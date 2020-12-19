@@ -1,5 +1,6 @@
 package it.polimi.db.form;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -9,21 +10,27 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 public class QuestionnaireForm {
-
+	
 	private Map<String, List<String>> errors = new HashMap<>();
 	private List<String> questions = new ArrayList<>();
+	
+	//tomorrow otherwise
+	private Date date;
 
 	public void popuniIzHttpRequesta(HttpServletRequest req) {
 		int i = 1;
 		while (i <= 50) {
 			if (req.getParameter("input-" + i) != null && !req.getParameter("input-" + i).trim().isEmpty()) {
 				questions.add(req.getParameter("input-" + i).trim());
-				System.out.println(req.getParameter("input-" + i).trim());
 		
 			} else if (req.getParameter("input-" + i) != null && req.getParameter("input-" + i).trim().isEmpty()) {
 			}
 			i++;
 		}
+		
+		if(req.getParameter("date").equals("0")) { 
+			date = new Date(System.currentTimeMillis());
+		} else date = new Date(System.currentTimeMillis() + 1000*60*60*24); //tomorrow is selected
 	}
 
 	// dodati provjere blacklist rijeci kasnije
@@ -60,4 +67,9 @@ public class QuestionnaireForm {
 	public List<String> getQuestions() {
 		return questions;
 	}
+
+	public Date getDate() {
+		return date;
+	}
+
 }
