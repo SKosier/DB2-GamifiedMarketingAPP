@@ -57,6 +57,8 @@
 	<a href="/logout">Logout</a><br><br>
 	
 	<form action="creation" method="post">
+		<input type="file" name="files" multiple>
+	
 		<p><b>Please select date for the questionnaire: </b><br></p>
 		<div th:if="${questForm.containsError('date')}">
 		   	<p style="color:red;" class="error" th:each="err : ${questForm.getError('date')}" th:text="${err}"></p>

@@ -65,7 +65,9 @@ public class CreationController {
 		questionnaireService.createQuestionnaire(newQuestionnaire);
 		
 		model.addAttribute("questform", new QuestionnaireForm());
-		return "redirect:/home";
+		model.addAttribute("msg", "Successfully uploaded new questionnaire ");// with product photo: +fileNames.toString());
+		return "uploadstatus";
+//		return "redirect:/home";
 	}
 
 	private Questionnaire fillFromQF(QuestionnaireForm qf) {
