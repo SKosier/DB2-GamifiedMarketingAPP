@@ -19,6 +19,8 @@ public class HomePageController {
 			return "redirect:/login";
 		}
 		
+		//dodati model atribut za danasnji upitnik
+		
 		return "home";
 	}
 	
