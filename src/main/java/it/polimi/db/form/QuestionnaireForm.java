@@ -14,6 +14,8 @@ public class QuestionnaireForm {
 	private Map<String, List<String>> errors = new HashMap<>();
 	private List<String> questions = new ArrayList<>();
 	
+	private String name;
+	
 	//tomorrow otherwise
 	private Date date;
 
@@ -31,6 +33,8 @@ public class QuestionnaireForm {
 		if(req.getParameter("date").equals("0")) { 
 			date = new Date(System.currentTimeMillis());
 		} else date = new Date(System.currentTimeMillis() + 1000*60*60*24); //tomorrow is selected
+		
+		name = req.getParameter("name");
 	}
 
 	// dodati provjere blacklist rijeci kasnije
@@ -39,6 +43,10 @@ public class QuestionnaireForm {
 
 		if(questions.size() == 0) {
 			setError("questions", "At least one question is needed!");
+		}
+		
+		if(name == null || name.length() == 0) {
+			setError("name", "Name of the product is necessary!");
 		}
 	}
 	
@@ -72,4 +80,7 @@ public class QuestionnaireForm {
 		return date;
 	}
 
+	public String getName() {
+		return name;
+	}
 }

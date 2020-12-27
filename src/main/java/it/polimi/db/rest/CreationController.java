@@ -1,10 +1,17 @@
 package it.polimi.db.rest;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,64 +30,87 @@ import it.polimi.db.service.QuestionnaireService;
 @Controller
 @RequestMapping("/creation")
 public class CreationController {
-	
+	public static String uploadDirectory = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\uploads";
+
 	@Autowired
 	private QuestionnaireService questionnaireService;
-	
+
 	@ModelAttribute("questForm")
 	public QuestionnaireForm populateFeatures() {
 		return new QuestionnaireForm();
 	}
-	
+
 	@GetMapping("")
 	public String create() {
 		return "creation";
 	}
-	
-	//ADD REDIRECTING TO: "YOU SUCCESSFULLY ADDED A QUESTIONNAIRE"
+
 	@RequestMapping()
-	public String saveQuestionnaire(@RequestParam("method") String method, final Questionnaire postQues, BindingResult bindingResult,
-			Model model, HttpServletRequest req) {
+	public String saveQuestionnaire(@RequestParam("method") String method,
+			final Questionnaire postQues,
+			BindingResult bindingResult, Model model, HttpServletRequest req) throws IOException {
 
 		if (method.equals("Cancel")) {
 			return "redirect:/home";
 		}
-		
+
 		QuestionnaireForm qf = new QuestionnaireForm();
 		qf.popuniIzHttpRequesta(req);
 		qf.validate();
-		
+
 		Optional<Questionnaire> existing = questionnaireService.findByDate(qf.getDate());
-		if(existing.isPresent()) {
+		if (existing.isPresent()) {
 			qf.setError("date", "Questionnaire for that date already exists");
 		}
-		
+
+		Part filePart = null;
+		try {
+			filePart = req.getPart("photo");
+			InputStream fileInputStream = filePart.getInputStream();
+		    File fileToSave = new File(uploadDirectory + "//" + filePart.getSubmittedFileName());
+		  
+		    try {
+				Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			
+		    } catch (IOException e) {
+				qf.setError("photo", "Error occured while uploading a photo!");
+				e.printStackTrace();
+			}
+		} catch (IOException | ServletException e1) {
+			qf.setError("photo", "Error occured while uploading a photo!");
+			e1.printStackTrace();
+		}
+	  		
+		System.out.println(filePart.getSubmittedFileName());
+
 		if (!qf.isValid()) {
 			model.addAttribute("questForm", qf);
 			model.addAttribute("questions", qf.getQuestions());
 			return "creation";
 		}
-		
+
 		Questionnaire newQuestionnaire = fillFromQF(qf);
+		newQuestionnaire.setPhoto(filePart.getSubmittedFileName());
 		questionnaireService.createQuestionnaire(newQuestionnaire);
-		
+
 		model.addAttribute("questform", new QuestionnaireForm());
-		model.addAttribute("msg", "Successfully uploaded new questionnaire ");// with product photo: +fileNames.toString());
+		model.addAttribute("msg", "Successfully uploaded new questionnaire ");// with product photo:
+																				// +fileNames.toString());
 		return "uploadstatus";
-//		return "redirect:/home";
 	}
 
 	private Questionnaire fillFromQF(QuestionnaireForm qf) {
 		Questionnaire newQuest = new Questionnaire();
 		Set<Question> questions = new HashSet<>();
-		for(String s : qf.getQuestions()) {
+		for (String s : qf.getQuestions()) {
 			Question q = new Question();
 			q.setQuestion(s);
-			
+
 			questions.add(q);
 		}
 		newQuest.setQuestions(questions);
 		newQuest.setDate(qf.getDate());
+		newQuest.setProductName(qf.getName());
 		return newQuest;
 	}
 }

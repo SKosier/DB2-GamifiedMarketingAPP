@@ -38,6 +38,12 @@ public class Questionnaire {
 	@JoinTable(name = "questionnaire_questions", joinColumns = @JoinColumn(name = "questionnaire_id"), inverseJoinColumns = @JoinColumn(name = "q_id", referencedColumnName = "question_id"))
 	private Set<Question> questions = new HashSet<>();
 
+	@Column(name="name")
+	private String productName;
+	
+	@Column(name="photo")
+	private String photo;
+
 	// **********************************************
 	public Set<User> getParticipants() {
 		return participants;
@@ -74,4 +80,21 @@ public class Questionnaire {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
 }

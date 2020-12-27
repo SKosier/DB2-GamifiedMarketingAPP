@@ -20,14 +20,12 @@ public class QuestionnaireServiceJPA implements QuestionnaireService {
 	
 	@Override
 	public List<Questionnaire> listAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return questionnaireRepo.findAll();
 	}
 
 	@Override
 	public Questionnaire fetch(int questionnaireId) {
-		// TODO Auto-generated method stub
-		return null;
+		return questionnaireRepo.getOne(questionnaireId);
 	}
 
 	//DODATI PROVJERE!!!

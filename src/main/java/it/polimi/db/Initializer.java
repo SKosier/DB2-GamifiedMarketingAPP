@@ -63,8 +63,10 @@ public class Initializer {
 			}
 		}
 
-		Date today = new Date(System.currentTimeMillis() + 1000*60*60*24);
+		Date today = new Date(System.currentTimeMillis());
 		q1.setDate(today);
+		q1.setProductName("Birra Moretti");
+		q1.setPhoto("moretti.jpg");
 		
 		//not allowed but just to have it in database (the day after tomorrow)
 		today = new Date(System.currentTimeMillis() + 2*1000*60*60*24);

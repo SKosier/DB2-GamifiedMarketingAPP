@@ -56,10 +56,17 @@
 	<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
 	<a href="/logout">Logout</a><br><br>
 	
-	<form action="creation" method="post">
-		<input type="file" name="files" multiple>
+	<form action="creation" method="post" enctype="multipart/form-data">
+		<p><b>Upload photo of product of the day: </b></p>
+		<input type="file" name="photo" accept="image/*" required>
 	
-		<p><b>Please select date for the questionnaire: </b><br></p>
+		<br><br><p><b>Insert name of the product: </b><br></p>
+		<div th:if="${questForm.containsError('name')}">
+		   	<p style="color:red;" class="error" th:each="err : ${questForm.getError('date')}" th:text="${err}"></p>
+		</div>
+		<textarea name="name" placeholder="Name the product..." rows="3" cols="80" required></textarea>
+	
+		<br><br><p><b>Please select date for the questionnaire: </b><br></p>
 		<div th:if="${questForm.containsError('date')}">
 		   	<p style="color:red;" class="error" th:each="err : ${questForm.getError('date')}" th:text="${err}"></p>
 		</div>

@@ -11,6 +11,20 @@
 
 	<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
 	<a href="/logout">Logout</a>
-
+	
+	<h1>Welcome!</h1>
+	<div th:if="${questToday != null}">
+		Today's product is: <br><br>
+		<b><span th:text="${questToday.getProductName()}"></span></b>
+		<br>
+		<img th:src="'uploads/' + ${questToday.getPhoto()}"/>
+		
+		<p>Fill out the questionnaire for the product of the day <a href="/questionnaire">here</a></p>	
+	</div>
+	
+	<div th:if="${questToday == null}">
+		There is no questionnaire for today! <br>
+		But come back tomorrow!
+	</div>
 </body>
 </html>
