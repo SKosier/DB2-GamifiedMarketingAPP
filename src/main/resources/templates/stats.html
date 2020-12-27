@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Creation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="css/home.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+	<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
+	<a href="/logout">Logout</a>
+	
+	<h1>Fill out this questionnaire!</h1>
+	<div th:if="${questToday != null}">
+		Today's product is: <br><br>
+		<b><span th:text="${questToday.getProductName()}"></span></b>
+		<br>
+		<img th:src="'../uploads/' + ${questToday.getPhoto()}"/>
+		
+		<br><br>This part is optional<br><br>
+		
+		<form action="/questionnaire/submit" method="post" enctype="multipart/form-data">
+			Age
+			Sex
+			Expertise Level
+			<br><br>
+			
+			<button type="submit" name="method" value="Save">Save my answers</button>
+			<button type="submit" name="method" value="Cancel">Cancel filling out this questionnaire</button>
+		</form>
+		<br>
+		
+		<form action="" method="post">
+    		<button type="submit" name="method" value="Previous">Previous page</button>
+		</form>
+	</div>
+	
+	<br><br><br>
+
+</body>
+</html>

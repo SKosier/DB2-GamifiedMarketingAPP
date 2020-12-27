@@ -28,6 +28,10 @@ public class Question {
 
 	// **********************************************
 
+	public Integer getId() {
+		return id;
+	}
+	
 	public String getQuestion() {
 		return question;
 	}
@@ -47,5 +51,8 @@ public class Question {
 	public void setQuestionnaires(Set<Questionnaire> questionnaires) {
 		this.questionnaires = questionnaires;
 	}
-
+	
+	public String toString() {
+		return question;
+	}
 }

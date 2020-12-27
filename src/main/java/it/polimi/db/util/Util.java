@@ -2,6 +2,7 @@ package it.polimi.db.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,6 +58,7 @@ public class Util {
 		req.getSession().setAttribute("currentUser", user);
 		req.getSession().setAttribute("currentUserId", user.getId());
 		req.getSession().setAttribute("currentUserName", user.getUsername());
+		req.getSession().setAttribute("loging", new Date());
 	//	req.getSession().setAttribute("isAdministrator", user.getUserPrivilege() == UserType.ADMINISTRATOR);
 	}
 }

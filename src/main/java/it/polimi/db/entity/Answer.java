@@ -2,30 +2,57 @@ package it.polimi.db.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="answer")
 public class Answer {
-	@OneToOne
-	@JoinColumn(name="user", referencedColumnName="user_id")
-	private User user;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "answer_id", nullable=false)
+	private Integer id;
 	
-	@OneToOne
-	@JoinColumn(name="from_questionnaire", referencedColumnName="questionnaire_id")
-	private Questionnaire questionnaire;
+	@Column(name = "u_id", nullable=false)
+	private int user;
 	
-	@OneToOne
-	@JoinColumn(name="question_id", referencedColumnName="question_id")
-	private Question question;
+	@Column(name = "quest_id", nullable=false)
+	private int questionnaire;
+	
+	@Column(name = "qstn_id", nullable=false)
+	private int question;
 
 	@Column(name="text")
 	private String text;
-	
+
 	// **********************************************
 	
+	public int getUser() {
+		return user;
+	}
+
+	public void setUser(int user) {
+		this.user = user;
+	}
+
+	public int getQuestionnaire() {
+		return questionnaire;
+	}
+
+	public void setQuestionnaire(int questionnaire) {
+		this.questionnaire = questionnaire;
+	}
+
+	public int getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(int question) {
+		this.question = question;
+	}
+
 	public String getText() {
 		return text;
 	}
@@ -33,17 +60,4 @@ public class Answer {
 	public void setText(String text) {
 		this.text = text;
 	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public Questionnaire getQuestionnaire() {
-		return questionnaire;
-	}
-
-	public Question getQuestion() {
-		return question;
-	}
-	
 }

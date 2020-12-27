@@ -1,5 +1,7 @@
 package it.polimi.db.rest;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +57,7 @@ public class RegistrationController {
 
 		User newUser = new User();
 		rf.popuniURecord(newUser);
-//		newUser.setJoinDate(new Date());
+		newUser.setLastLogIn(new Date());
 		newUser.setPasswordHash(Util.calculateHash(newUser.getPasswordHash()));
 //		newUser.setUserPrivilege(UserType.COMPETITOR);
 		

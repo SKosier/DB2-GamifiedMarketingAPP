@@ -1,10 +1,10 @@
 package it.polimi.db.rest;
 
+import java.util.Date;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.usertype.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,8 +60,8 @@ public class LoginController {
 			return "login";
 		}
 		
-		User registeredUser = opUser.get();
-		
+		User loggedUser = opUser.get();
+
 		// check if user is banned
 //		if(registeredUser.getUserPrivilege() == UserType.BANNED) {
 //			lf = new LoginForm();
@@ -69,8 +69,11 @@ public class LoginController {
 //			model.addAttribute("logform", lf);
 //			return "login";
 //		}
+
+		loggedUser.setLastLogIn(new Date());
+		userService.updateUser(loggedUser);
 		
-		Util.setSessionAttributes(req, registeredUser);
+		Util.setSessionAttributes(req, loggedUser);
 		model.addAttribute("logform", new LoginForm());
 		return "redirect:/home";
 	}

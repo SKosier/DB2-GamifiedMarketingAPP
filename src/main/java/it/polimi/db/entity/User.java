@@ -1,5 +1,6 @@
 package it.polimi.db.entity;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,6 +37,9 @@ public class User {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE}, mappedBy = "participants")
 	private Set<Questionnaire> questionnaires = new HashSet<>(); // na kojima sudjeluje
 	
+	@Column(name="last_log_in")
+	private Date lastLogIn;
+	
 	//***************************************************
 	public Integer getId() {
 		return id;
@@ -69,6 +73,14 @@ public class User {
 		this.passwordHash = passwordHash;
 	}
 	
+	public Date getLastLogIn() {
+		return lastLogIn;
+	}
+
+	public void setLastLogIn(Date lastLogIn) {
+		this.lastLogIn = lastLogIn;
+	}
+
 	@Override
 	public String toString() {
 		return "User #" + id + " " + username + " " + email;
