@@ -8,58 +8,56 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="answer")
+@Table(name = "answer")
 public class Answer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "answer_id", nullable=false)
+	@Column(name = "answer_id", nullable = false)
 	private Integer id;
-	
-	@Column(name = "user", nullable=false)
-	private int user;
-	
-	@Column(name = "questionnaire", nullable=false)
-	private int questionnaire;
-	
-	@Column(name = "question", nullable=false)
-	private int question;
 
-	@Column(name="text")
+	@Column(name = "user", nullable = false)
+	private int userId;
+
+	@Column(name = "questionnaire", nullable = false)
+	private int questionnaireId;
+
+	@Column(name = "question", nullable = false)
+	private int questionId;
+
+	@Column(name = "text")
 	private String text;
-	
-	
+
 	// **********************************************
-	
-	public int getUser() {
-		return user;
+
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser(int user) {
-		this.user = user;
+	public int getQuestionnaireId() {
+		return questionnaireId;
 	}
 
-	public int getQuestionnaire() {
-		return questionnaire;
-	}
-
-	public void setQuestionnaire(int questionnaire) {
-		this.questionnaire = questionnaire;
-	}
-
-	public int getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(int question) {
-		this.question = question;
+	public int getQuestionId() {
+		return questionId;
 	}
 
 	public String getText() {
 		return text;
 	}
 
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public void setQuestionnaireId(int questionnaireId) {
+		this.questionnaireId = questionnaireId;
+	}
+
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
+	}
+
 	public void setText(String text) {
 		this.text = text;
 	}
-	
 }

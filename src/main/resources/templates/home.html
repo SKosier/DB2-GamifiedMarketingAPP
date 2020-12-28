@@ -1,9 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Creation</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="css/home.css" rel="stylesheet" type="text/css">
+	<title>Creation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="css/home.css" rel="stylesheet" type="text/css">
+	<style>
+		.prva {
+			table-layout: auto;
+  			border: 1px solid black;
+		}
+		.tablica {
+			table-layout: auto;
+			padding: 15px;
+		}
+		th, td {
+    		padding: 5px;
+		}
+	   
+	</style>
 </head>
 
 <body>
@@ -25,12 +39,33 @@
 		<div th:if="${submittedAnswer != null}">
 			<p>You already filled out questionnaire for today!<br>Come back tomorrow!
 		</div>
-			
 	</div>
 	
 	<div th:if="${questToday == null}">
 		There is no questionnaire for today! <br>
 		But come back tomorrow!
 	</div>
+	
+	<h2>Read reviews</h2>
+	
+	<table class="prva">
+		<tr class="border_bottom">
+			<th>No</th>
+			<th>Question</th>
+			<th class="zadnji">Answers</th>
+		</tr>
+		<tr th:each="entry, stat : ${questions}">
+			<td th:text="${stat.index + 1}">1</td>
+			<td th:text="${questions.get(entry.key)}">question</td>
+			<td style="min-width:300px">
+				<table class="tablica">
+					<tr th:each="review : ${reviews.get(entry.key)}">
+						<td th:text="${review}"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
 </body>
 </html>

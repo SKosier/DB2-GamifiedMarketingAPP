@@ -25,4 +25,8 @@ public class StatisticServiceJPA implements StatisticService {
 		return statRepo.save(stat);
 	}
 
+	@Override
+	public Statistic updateStatistic(Statistic stat) {
+		return statRepo.saveAndFlush(stat);
+	}
 }

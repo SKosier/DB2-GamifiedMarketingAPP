@@ -18,18 +18,18 @@ public class AnswerServiceJPA implements AnswerService {
 
 	@Override
 	public List<Answer> findByUser(Integer user_id) {
-		return answerRepo.findByUser(user_id);
+		return answerRepo.findByUserId(user_id);
 	}
 
 	@Override
 	public List<Answer> findByQuestionnaire(Integer questionnaire_id) {
-		return answerRepo.findByQuestionnaire(questionnaire_id);
+		return answerRepo.findByQuestionnaireId(questionnaire_id);
 	}
 
 	@Override
 	public Optional<Answer> findByUserAndQuestionnaireAndQuestion(Integer user_id, Integer questionnaire_id,
 			Integer question_id) {
-		return answerRepo.findByUserAndQuestionnaireAndQuestion(user_id, questionnaire_id, question_id);
+		return answerRepo.findByUserIdAndQuestionnaireIdAndQuestionId(user_id, questionnaire_id, question_id);
 	}
 
 	@Override
@@ -44,6 +44,6 @@ public class AnswerServiceJPA implements AnswerService {
 
 	@Override
 	public List<Answer> findByUserAndQuestionnaire(Integer userId, Integer questionnaireId) {
-		return answerRepo.findByUserAndQuestionnaire(userId, questionnaireId);
+		return answerRepo.findByUserIdAndQuestionnaireId(userId, questionnaireId);
 	}
 }

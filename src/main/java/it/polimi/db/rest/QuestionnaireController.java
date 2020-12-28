@@ -104,9 +104,18 @@ public class QuestionnaireController {
 //			return "redirect:/login";
 //		}
 
+		Integer userId = (Integer) req.getSession().getAttribute("currentUserId");
+		Questionnaire q = getToday();
+		
 		if (method.equals("Cancel")) {
-			model.addAttribute("ansform", new AnswersForm(getToday()));
+			Statistic stat = new Statistic();
+			stat.setQuestionnaireId(q.getId());
+			stat.setUser_id(userId);
+			stat.setCanceled(true);
+			
+			statisticService.createStatistic(stat);
 			temp = null;
+			model.addAttribute("ansform", new AnswersForm(q));
 			return "redirect:/home";
 		}
 
@@ -117,9 +126,9 @@ public class QuestionnaireController {
 			for(Integer id : temp.getAnswers().keySet()) {
 				Answer ans = new Answer();
 				ans.setText(temp.getAnswer(id));
-				ans.setQuestion(id);
-				ans.setQuestionnaire(getToday().getId());
-				ans.setUser((int) req.getSession().getAttribute("currentUserId"));
+				ans.setQuestionId(id);
+				ans.setQuestionnaireId(q.getId());
+				ans.setUserId(userId);
 				answerService.createAnswer(ans);
 			}
 			
@@ -128,18 +137,24 @@ public class QuestionnaireController {
 			String expLevel = req.getParameter("exper");
 			
 			if(age != null || sex != null || expLevel != null) {
-				Statistic stat = new Statistic();
+				Optional<Statistic> stats = statisticService.findByUserAndQuestionnaire(userId, q.getId());
+				Statistic stat;
+				
+				if(stats.isPresent()) {
+					stat = stats.get();
+				
+				} else {
+					stat = new Statistic();
+				}
+
+				stat.setCanceled(false);
 				stat.setAge(age);
 				stat.setExpertiseLevel(expLevel);
 				stat.setSex(sex);
-				stat.setQuestionnaireId(getToday().getId());
-				stat.setUser_id((int) req.getSession().getAttribute("currentUserId"));
-				statisticService.createStatistic(stat);
+				stat.setQuestionnaireId(q.getId());
+				stat.setUser_id(userId);
+				statisticService.updateStatistic(stat);
 			}
-			
-			System.out.println(age);
-			System.out.println(sex);
-			System.out.println(expLevel);
 		}
 		
 		model.addAttribute("msg", "Thank you for filling out questionnaire of the day!");

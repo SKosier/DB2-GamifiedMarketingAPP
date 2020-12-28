@@ -25,8 +25,7 @@ public class QuestionServiceJPA implements QuestionService {
 
 	@Override
 	public Optional<Question> findById(int questionId) {
-		// TODO Auto-generated method stub
-		return null;
+		return qRepo.findById(questionId);
 	}
 
 	// DODATI PROVJERE!!!

@@ -29,6 +29,11 @@ public class Statistic {
 	@Column(name = "expertiseLevel")
 	private String expertiseLevel;
 
+	@Column(name="isCanceled")
+	private boolean isCanceled;
+	
+	// *******************************************************
+	
 	public String getAge() {
 		return age;
 	}
@@ -67,5 +72,13 @@ public class Statistic {
 
 	public void setUser_id(Integer user_id) {
 		this.userId = user_id;
+	}
+
+	public boolean isCanceled() {
+		return isCanceled;
+	}
+
+	public void setCanceled(boolean isCanceled) {
+		this.isCanceled = isCanceled;
 	}
 }
