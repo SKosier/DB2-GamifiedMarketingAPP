@@ -1,3 +1,44 @@
+28.12.2020.
+
+Toma i Robi
+
+Sto je napraljeno:
+
+-log in i register
+-upload slike proizvoda
+-odabir dana za anketu
+-stvaranje nove ankete za odabrani dan i proizvod
+-home page koji prikazuje anketu (ako postoji za taj dan, ako ne, kaze ljudima: "dodite sutra")
+-spremanje varijabilnih odgovora u bazu (obavezna pitanja)
+-spremanje fiksnih pitanja o statistici u bazu
+-spremanje informacije ako je koristnik "cancelao" upitnik
+-cijela baza basically
+
+Task for you:
+napraviti triger (mislim da je point da racunanje bodova baza vrsi sama, tako da treba napraviti sql upit)
+napraviti leaderbord page i link dodati na home page
+inspection page
+deletion page 
+	pazite da u bazi stvarno sve pobrisete; postoje baze koje se referenciraju indirektno na druge)
+	(npr, ako pobrisete nekog Usera, questionnaire_participant ce maknuti sve vrijednosti s tim userom i odraditi posao za vas)
+	(ali baza statistic i answer nece!)
+frontend za html-ove (home, creation, questionnaire, stats, uploadstatus) i one koje dodate
+
+
+ps. vi napravite popis rijeci za blacklist lol
+ja cu napraviti bazu za to i provjeru unose korisnika i bannati ih ako napisu nesto kontraverzno, npr ""N"" word
+
+
+KORISNO:
+U initializeru sam stavila da su svi korisnici vec u bazi administratori (osim Federica koji je bannan, probajte se ulogirat s njegovim credentialima)
+Credentiali za svakog usera u initializeru su: 
+<Ime>
+<Ime123> -pass
+
+
+//*****************************************************************************************************************
+
+
 Raga znaci ovako:
 
 napravila sam User-a i postavila sam bazu na noge
@@ -43,5 +84,17 @@ select * from questionnaire_participant;
 select * from questionnaire_questions;
 select * from user;
 
-dodala sam zavisnost user-questionnaire i questionnaire-question
-radim na Questionnaire/creation page-u
+
+
+
+
+
+
+
+
+
+
+
+
+
+

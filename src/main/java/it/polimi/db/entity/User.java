@@ -15,12 +15,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+
 @Entity
 @Table(name = "user")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="user_id")
+	@Column(name = "user_id")
 	private Integer id;
 
 	@Column(nullable = false)
@@ -34,15 +35,19 @@ public class User {
 	@Column(nullable = false)
 	private String passwordHash;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE}, mappedBy = "participants")
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE }, mappedBy = "participants")
 	private Set<Questionnaire> questionnaires = new HashSet<>(); // na kojima sudjeluje
-	
-	@Column(name="last_log_in")
+
+	@Column(name = "last_log_in")
 	private Date lastLogIn;
-	
-	@Column(name="total_points")
+
+	@Column(name = "total_points")
 	private Integer points;
-	//***************************************************
+
+	@Column
+	private UserType userPrivilege;
+
+	// ***************************************************
 	public Integer getId() {
 		return id;
 	}
@@ -74,7 +79,7 @@ public class User {
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
-	
+
 	public Date getLastLogIn() {
 		return lastLogIn;
 	}
@@ -90,7 +95,15 @@ public class User {
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
-	
+
+	public UserType getUserPrivilege() {
+		return userPrivilege;
+	}
+
+	public void setUserPrivilege(UserType userPrivilege) {
+		this.userPrivilege = userPrivilege;
+	}
+
 	@Override
 	public String toString() {
 		return "User #" + id + " " + username + " " + email;

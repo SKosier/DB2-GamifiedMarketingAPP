@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.polimi.db.entity.User;
+import it.polimi.db.entity.UserType;
 import it.polimi.db.form.RegistrationForm;
 import it.polimi.db.service.UserService;
 import it.polimi.db.util.Util;
@@ -59,7 +60,7 @@ public class RegistrationController {
 		rf.popuniURecord(newUser);
 		newUser.setLastLogIn(new Date());
 		newUser.setPasswordHash(Util.calculateHash(newUser.getPasswordHash()));
-//		newUser.setUserPrivilege(UserType.COMPETITOR);
+		newUser.setUserPrivilege(UserType.PARTICIPANT);
 		
 		this.userService.createUser(newUser);
 		Util.setSessionAttributes(req, newUser);

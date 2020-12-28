@@ -1,6 +1,6 @@
 package it.polimi.db;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import it.polimi.db.entity.Question;
 import it.polimi.db.entity.Questionnaire;
 import it.polimi.db.entity.User;
+import it.polimi.db.entity.UserType;
 import it.polimi.db.service.QuestionService;
 import it.polimi.db.service.QuestionnaireService;
 import it.polimi.db.service.UserService;
@@ -81,6 +82,11 @@ public class Initializer {
 		user.setUsername(name);
 		user.setEmail(name + "@gmail.com");
 		user.setPasswordHash(Util.calculateHash(name + "123"));
+		user.setLastLogIn(new Date());
+		user.setUserPrivilege(UserType.ADMINISTRATOR);
+		
+		if(name.equals("Federico")) user.setUserPrivilege(UserType.BANNED);
+		
 		return user;
 	}
 }

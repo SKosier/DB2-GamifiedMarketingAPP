@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import it.polimi.db.entity.User;
+import it.polimi.db.entity.UserType;
 
 
 /**
@@ -59,6 +60,6 @@ public class Util {
 		req.getSession().setAttribute("currentUserId", user.getId());
 		req.getSession().setAttribute("currentUserName", user.getUsername());
 		req.getSession().setAttribute("loging", new Date());
-	//	req.getSession().setAttribute("isAdministrator", user.getUserPrivilege() == UserType.ADMINISTRATOR);
+		req.getSession().setAttribute("isAdministrator", user.getUserPrivilege() == UserType.ADMINISTRATOR);
 	}
 }

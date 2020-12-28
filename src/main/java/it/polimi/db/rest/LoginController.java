@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.polimi.db.entity.User;
+import it.polimi.db.entity.UserType;
 import it.polimi.db.form.LoginForm;
 import it.polimi.db.service.UserService;
 import it.polimi.db.util.Util;
@@ -62,13 +63,13 @@ public class LoginController {
 		
 		User loggedUser = opUser.get();
 
-		// check if user is banned
-//		if(registeredUser.getUserPrivilege() == UserType.BANNED) {
-//			lf = new LoginForm();
-//			lf.setError("password", "You are not allowed to enter this site!");
-//			model.addAttribute("logform", lf);
-//			return "login";
-//		}
+		//check if user is banned
+		if(loggedUser.getUserPrivilege() == UserType.BANNED) {
+			lf = new LoginForm();
+			lf.setError("password", "You are not allowed to enter this site!");
+			model.addAttribute("logform", lf);
+			return "login";
+		}
 
 		loggedUser.setLastLogIn(new Date());
 		userService.updateUser(loggedUser);
