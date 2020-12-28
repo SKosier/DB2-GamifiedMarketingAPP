@@ -2,7 +2,6 @@ package it.polimi.db.rest;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import it.polimi.db.entity.Answer;
 import it.polimi.db.entity.Questionnaire;
+import it.polimi.db.entity.Statistic;
 import it.polimi.db.form.AnswersForm;
 import it.polimi.db.service.AnswerService;
 import it.polimi.db.service.QuestionnaireService;
+import it.polimi.db.service.StatisticService;
 import it.polimi.db.service.UserService;
 
 @Controller
@@ -36,6 +37,9 @@ public class QuestionnaireController {
 	@Autowired
 	private AnswerService answerService;
 
+	@Autowired
+	private StatisticService statisticService;
+	
 	private AnswersForm temp;
 	
 	@ModelAttribute("ansform") 
@@ -73,9 +77,6 @@ public class QuestionnaireController {
 		AnswersForm af = new AnswersForm(getToday());
 		af.popuniIzHttpRequesta(req);
 		
-		Map<Integer, String> map = af.getAnswers();
-		for(Integer i : map.keySet()) System.out.println(map.get(i));
-		
 		model.addAttribute("ansform", af);
 		temp = af;
 		return "stats";
@@ -100,7 +101,37 @@ public class QuestionnaireController {
 			return "redirect:/home";
 		}
 
-		System.out.println(temp.getAnswers().size());
+		temp.validate();
+		if(!temp.isValid()) {
+			
+		} else {
+			for(Integer id : temp.getAnswers().keySet()) {
+				Answer ans = new Answer();
+				ans.setText(temp.getAnswer(id));
+				ans.setQuestion(id);
+				ans.setQuestionnaire(getToday().getId());
+				ans.setUser((int) req.getSession().getAttribute("currentUserId"));
+				answerService.createAnswer(ans);
+			}
+			
+			String age = req.getParameter("date");
+			String sex = req.getParameter("sex");
+			String expLevel = req.getParameter("exper");
+			
+			if(age != null || sex != null || expLevel != null) {
+				Statistic stat = new Statistic();
+				stat.setAge(age);
+				stat.setExpertiseLevel(expLevel);
+				stat.setSex(sex);
+				stat.setQuestionnaireId(getToday().getId());
+				stat.setUser_id((int) req.getSession().getAttribute("currentUserId"));
+				statisticService.createStatistic(stat);
+			}
+			
+			System.out.println(age);
+			System.out.println(sex);
+			System.out.println(expLevel);
+		}
 		
 		model.addAttribute("msg", "Thank you for filling out questionnaire of the day!");
 		return "uploadstatus";

@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import it.polimi.db.entity.Answer;
-import it.polimi.db.entity.Question;
-import it.polimi.db.entity.Questionnaire;
-import it.polimi.db.entity.User;
 
 public interface AnswerRepository extends JpaRepository<Answer, Integer>{
-	List<Answer> findByUser(User user);
-	List<Answer> findByQuestionnaire(Questionnaire questionnaire);
-	Optional<Answer> findByUserAndQuestionnaireAndQuestion(User user, Questionnaire questionnaire, Question question);
+	List<Answer> findByUser(Integer user_id);
+	
+	List<Answer> findByQuestionnaire(Integer questionnaire_id);
+	
+	Optional<Answer> findByUserAndQuestionnaireAndQuestion(Integer user_id, Integer questionnaire_id, Integer question_id);
+	
 }

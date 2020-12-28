@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 
 import it.polimi.db.dao.AnswerRepository;
 import it.polimi.db.entity.Answer;
-import it.polimi.db.entity.Question;
-import it.polimi.db.entity.Questionnaire;
-import it.polimi.db.entity.User;
 import it.polimi.db.service.AnswerService;
 
 @Service
@@ -20,19 +17,19 @@ public class AnswerServiceJPA implements AnswerService {
 	private AnswerRepository answerRepo;
 
 	@Override
-	public List<Answer> findByUser(User user) {
-		return answerRepo.findByUser(user);
+	public List<Answer> findByUser(Integer user_id) {
+		return answerRepo.findByUser(user_id);
 	}
 
 	@Override
-	public List<Answer> findByQuestionnaire(Questionnaire questionnaire) {
-		return answerRepo.findByQuestionnaire(questionnaire);
+	public List<Answer> findByQuestionnaire(Integer questionnaire_id) {
+		return answerRepo.findByQuestionnaire(questionnaire_id);
 	}
 
 	@Override
-	public Optional<Answer> findByUserAndQuestionnaireAndQuestion(User user, Questionnaire questionnaire,
-			Question question) {
-		return answerRepo.findByUserAndQuestionnaireAndQuestion(user, questionnaire, question);
+	public Optional<Answer> findByUserAndQuestionnaireAndQuestion(Integer user_id, Integer questionnaire_id,
+			Integer question_id) {
+		return answerRepo.findByUserAndQuestionnaireAndQuestion(user_id, questionnaire_id, question_id);
 	}
 
 	@Override

@@ -81,8 +81,6 @@ public class CreationController {
 			e1.printStackTrace();
 		}
 	  		
-		System.out.println(filePart.getSubmittedFileName());
-
 		if (!qf.isValid()) {
 			model.addAttribute("questForm", qf);
 			model.addAttribute("questions", qf.getQuestions());

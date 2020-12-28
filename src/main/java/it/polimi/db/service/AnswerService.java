@@ -4,16 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import it.polimi.db.entity.Answer;
-import it.polimi.db.entity.Question;
-import it.polimi.db.entity.Questionnaire;
-import it.polimi.db.entity.User;
 
 public interface AnswerService {
-	List<Answer> findByUser(User user);
+	List<Answer> findByUser(Integer user_id);
 	
-	List<Answer> findByQuestionnaire(Questionnaire questionnaire);
+	List<Answer> findByQuestionnaire(Integer questionnaire_id);
 	
-	Optional<Answer> findByUserAndQuestionnaireAndQuestion(User user, Questionnaire questionnaire, Question question);
+	Optional<Answer> findByUserAndQuestionnaireAndQuestion(Integer user_id, Integer questionnaire_id, Integer question_id);
 	
 	Answer createAnswer(Answer answer);
 	

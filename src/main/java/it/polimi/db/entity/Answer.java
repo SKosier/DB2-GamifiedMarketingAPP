@@ -15,18 +15,19 @@ public class Answer {
 	@Column(name = "answer_id", nullable=false)
 	private Integer id;
 	
-	@Column(name = "u_id", nullable=false)
+	@Column(name = "user", nullable=false)
 	private int user;
 	
-	@Column(name = "quest_id", nullable=false)
+	@Column(name = "questionnaire", nullable=false)
 	private int questionnaire;
 	
-	@Column(name = "qstn_id", nullable=false)
+	@Column(name = "question", nullable=false)
 	private int question;
 
 	@Column(name="text")
 	private String text;
-
+	
+	
 	// **********************************************
 	
 	public int getUser() {
@@ -60,4 +61,5 @@ public class Answer {
 	public void setText(String text) {
 		this.text = text;
 	}
+	
 }

@@ -18,12 +18,38 @@
 		<br>
 		<img th:src="'../uploads/' + ${questToday.getPhoto()}"/>
 		
-		<br><br>This part is optional<br><br>
+		<br><br>This part is optional!<br><br>
 		
 		<form action="/questionnaire/submit" method="post" enctype="multipart/form-data">
-			Age
-			Sex
-			Expertise Level
+			 <b>Age:</b> <br>
+			 <input type="radio" id="today" name="age" value="UNDERAGED" >
+			 <label for="age1">0-17</label><br>
+			 <input type="radio" id="tomorrow" name="age" value="YOUNG ADULT">
+			 <label for="age2">18-30</label><br>
+			 <input type="radio" id="tomorrow" name="age" value="ADULT">
+			 <label for="age2">31-50</label><br>
+			 <input type="radio" id="tomorrow" name="age" value="SENIOR CITIZEN">
+			 <label for="age2">51-70</label><br>
+			 <input type="radio" id="tomorrow" name="age" value="AN ELDERLY">
+			 <label for="age2">>71</label><br><br>
+			
+			<b>Sex:</b> <br>
+			 <input type="radio" id="today" name="sex" value="M" >
+			 <label for="sex1">Male</label><br>
+			 <input type="radio" id="tomorrow" name="sex" value="F">
+			 <label for="sex2">Female</label><br>
+			 <input type="radio" id="tomorrow" name="sex" value="O">
+			 <label for="sex3">Other</label><br>
+			 
+			 <br>
+			<b>Expertise Level:</b> <br>
+			 <input type="radio" id="today" name="exper" value="LOW" >
+			 <label for="exper1">Low</label><br>
+			 <input type="radio" id="tomorrow" name="exper" value="MEDIUM">
+			 <label for="exper2">Medium</label><br>
+			 <input type="radio" id="tomorrow" name="exper" value="HIGH">
+			 <label for="exper3">High</label><br>
+			
 			<br><br>
 			
 			<button type="submit" name="method" value="Save">Save my answers</button>
