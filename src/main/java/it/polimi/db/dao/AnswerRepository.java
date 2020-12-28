@@ -12,6 +12,8 @@ public interface AnswerRepository extends JpaRepository<Answer, Integer>{
 	
 	List<Answer> findByQuestionnaire(Integer questionnaire_id);
 	
+	List<Answer> findByUserAndQuestionnaire(Integer userId, Integer questionnaireId);
+	
 	Optional<Answer> findByUserAndQuestionnaireAndQuestion(Integer user_id, Integer questionnaire_id, Integer question_id);
 	
 }

@@ -2,6 +2,7 @@ package it.polimi.db.rest;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,8 +58,16 @@ public class QuestionnaireController {
 
 	@GetMapping("")
 	public String create(HttpServletRequest req) {
-		if (getToday() == null)
+		Questionnaire q = getToday();
+		Integer user = (Integer) req.getSession().getAttribute("currentUserId");
+		if (q == null || user == null)
 			return "redirect:/home";
+		
+		List<Answer> answers = answerService.findByUserAndQuestionnaire(user, q.getId());
+		if(answers != null && answers.size() != 0) {
+			return "redirect:/home"; //return to page - you already submitted it
+		}
+		
 		return "questionnaire";
 	}
 	

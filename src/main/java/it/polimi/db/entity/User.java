@@ -40,6 +40,8 @@ public class User {
 	@Column(name="last_log_in")
 	private Date lastLogIn;
 	
+	@Column(name="total_points")
+	private Integer points;
 	//***************************************************
 	public Integer getId() {
 		return id;
@@ -81,6 +83,14 @@ public class User {
 		this.lastLogIn = lastLogIn;
 	}
 
+	public Integer getPoints() {
+		return points;
+	}
+
+	public void setPoints(Integer points) {
+		this.points = points;
+	}
+	
 	@Override
 	public String toString() {
 		return "User #" + id + " " + username + " " + email;

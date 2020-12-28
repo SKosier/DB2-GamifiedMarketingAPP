@@ -41,4 +41,9 @@ public class AnswerServiceJPA implements AnswerService {
 	public Answer updateAnswer(Answer answer) {
 		return answerRepo.saveAndFlush(answer);
 	}
+
+	@Override
+	public List<Answer> findByUserAndQuestionnaire(Integer userId, Integer questionnaireId) {
+		return answerRepo.findByUserAndQuestionnaire(userId, questionnaireId);
+	}
 }
