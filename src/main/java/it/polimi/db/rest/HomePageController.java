@@ -48,9 +48,10 @@ public class HomePageController {
 	@ModelAttribute("submittedAnswer")
 	public List<Answer> getAnswer(HttpServletRequest req) {
 		Integer user = (Integer) req.getSession().getAttribute("currentUserId");
-		if (user == null)
+		Questionnaire q = getToday();
+		if (q == null || user == null)
 			return null;
-		List<Answer> submitted = answerService.findByUserAndQuestionnaire(user, getToday().getId());
+		List<Answer> submitted = answerService.findByUserAndQuestionnaire(user, q.getId());
 		if (submitted != null && submitted.size() != 0)
 			return submitted;
 		return null;

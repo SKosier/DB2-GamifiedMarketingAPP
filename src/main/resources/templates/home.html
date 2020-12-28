@@ -16,15 +16,12 @@
 		th, td {
     		padding: 5px;
 		}
-	   
 	</style>
 </head>
 
 <body>
-
-
 	<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
-	<a href="/logout">Logout</a>
+	<a href="/logout">Logout</a>	
 	
 	<h1>Welcome!</h1>
 	<div th:if="${questToday != null}">
