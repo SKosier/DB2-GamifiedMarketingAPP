@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Leaderboard</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="css/home.css" rel="stylesheet" type="text/css">
+	<style>
+		.table {
+			table-layout: auto;
+  			border: 1px solid black;
+		}
+		th, td {
+    		padding: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
+	<a href="/home">Home</a>	
+	
+	<h1>Todays leaderboard!</h1>
+	<div th:if="${questToday != null}">
+		Today's product is: <b><span th:text="${questToday.getProductName()}"></span></b>
+		<br>
+	</div>
+	
+	<div th:if="${questToday == null}">
+		There is no questionnaire for today! <br>
+		But come back tomorrow!
+	</div>
+	
+	<table class="table">
+		<tr class="border_bottom">
+			<th>No</th>
+			<th>Username</th>
+			<th>Points</th>
+		</tr>
+		<tr th:each="entry, stat : ${points}">
+			<td th:text="${stat.index + 1}">1</td>
+			<td th:text="${users[stat.index].getUsername()}">Username</td>
+			<td th:text="${points.get(stat.index+1)}">Points</td>
+		</tr>
+	</table>
+
+</body>
+</html>
