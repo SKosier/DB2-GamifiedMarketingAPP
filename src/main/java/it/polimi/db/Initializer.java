@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import it.polimi.db.entity.Question;
 import it.polimi.db.entity.Questionnaire;
 import it.polimi.db.entity.User;
+import it.polimi.db.entity.BannedWords;
 import it.polimi.db.entity.UserType;
 import it.polimi.db.service.QuestionService;
 import it.polimi.db.service.QuestionnaireService;
@@ -45,6 +46,10 @@ public class Initializer {
 
 		Questionnaire q2 = new Questionnaire();
 		questionnaireService.createQuestionnaire(q2);
+		
+		BannedWords b1 = new BannedWords();
+		b1.initializeList();
+		//b1.listCheckPrint();
 
 		String[] list = { "What do you think about this product?", "Would you buy this product?",
 				"Would you recomend this product to your friends?",
