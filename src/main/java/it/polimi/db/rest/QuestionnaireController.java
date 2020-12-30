@@ -142,7 +142,7 @@ public class QuestionnaireController {
 				newPoints++;
 			}
 			
-			String age = req.getParameter("date");
+			String age = req.getParameter("age");
 			String sex = req.getParameter("sex");
 			String expLevel = req.getParameter("exper");
 			
