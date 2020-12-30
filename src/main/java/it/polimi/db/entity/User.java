@@ -42,7 +42,7 @@ public class User {
 	private Date lastLogIn;
 
 	@Column(name = "total_points")
-	private Integer points;
+	private Integer points = 0;
 
 	@Column
 	private UserType userPrivilege;

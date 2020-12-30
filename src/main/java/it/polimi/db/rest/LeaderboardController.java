@@ -52,7 +52,7 @@ public class LeaderboardController {
 		            .collect(Collectors.toList());
 		int i = 1;
 		for(User user : sortedUsers) {
-			points.put(i, user.getPoints());
+			points.put(i, (user.getPoints()!=null)?user.getPoints():0);
 			i++;
 		}
 		

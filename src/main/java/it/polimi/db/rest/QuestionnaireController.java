@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import it.polimi.db.entity.Answer;
 import it.polimi.db.entity.Questionnaire;
 import it.polimi.db.entity.Statistic;
+import it.polimi.db.entity.User;
 import it.polimi.db.form.AnswersForm;
 import it.polimi.db.service.AnswerService;
 import it.polimi.db.service.QuestionnaireService;
@@ -120,9 +121,15 @@ public class QuestionnaireController {
 		}
 
 		temp.validate();
-		if(!temp.isValid()) {
+		//Toma doda
+		Optional<User> currentUser = userService.findById(userId);
+		if(!temp.isValid() && currentUser.isPresent()) {
 			
 		} else {
+			//Toma doda
+			User user = currentUser.get();
+			int newPoints = user.getPoints();
+			
 			for(Integer id : temp.getAnswers().keySet()) {
 				Answer ans = new Answer();
 				ans.setText(temp.getAnswer(id));
@@ -130,6 +137,9 @@ public class QuestionnaireController {
 				ans.setQuestionnaireId(q.getId());
 				ans.setUserId(userId);
 				answerService.createAnswer(ans);
+				
+				//Toma doda
+				newPoints++;
 			}
 			
 			String age = req.getParameter("date");
@@ -154,7 +164,16 @@ public class QuestionnaireController {
 				stat.setQuestionnaireId(q.getId());
 				stat.setUser_id(userId);
 				statisticService.updateStatistic(stat);
+				
+
+				//Toma doda
+				if(age!=null)		newPoints+=2;
+				if(sex!=null)		newPoints+=2;
+				if(expLevel!=null)	newPoints+=2;
 			}
+			//Toma doda
+			user.setPoints(newPoints);
+			userService.updateUser(user);
 		}
 		
 		model.addAttribute("msg", "Thank you for filling out questionnaire of the day!");
