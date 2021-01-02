@@ -21,7 +21,9 @@
 
 <body>
 	<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
-	<a href="/logout">Logout</a>	
+	<a href="/logout">Logout</a>
+	<p th:text="'Check the todays leaderboard '"></p>
+	<a href="/leaderboard">Leaderboard</a>
 	
 	<h1>Welcome!</h1>
 	<div th:if="${questToday != null}">
