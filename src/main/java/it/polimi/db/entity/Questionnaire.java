@@ -30,7 +30,7 @@ public class Questionnaire {
 	@Temporal(TemporalType.DATE)
 	private Date date; //date for questionnaire
 
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "questionnaire_participant", joinColumns = @JoinColumn(name = "questionnaire_id"), inverseJoinColumns = @JoinColumn(name = "participant_id", referencedColumnName = "user_id"))
 	private Set<User> participants = new HashSet<>();
 

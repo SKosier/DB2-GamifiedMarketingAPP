@@ -35,7 +35,7 @@ public class User {
 	@Column(nullable = false)
 	private String passwordHash;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE }, mappedBy = "participants")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "participants")
 	private Set<Questionnaire> questionnaires = new HashSet<>(); // na kojima sudjeluje
 
 	@Column(name = "last_log_in")
@@ -104,6 +104,14 @@ public class User {
 		this.userPrivilege = userPrivilege;
 	}
 
+	public void addFilledQuestionnaire(Questionnaire q) {
+		this.questionnaires.add(q);
+	}
+	
+	public Set<Questionnaire> getQuestionnaires() {
+		return questionnaires;
+	}
+	
 	@Override
 	public String toString() {
 		return "User #" + id + " " + username + " " + email;

@@ -173,6 +173,7 @@ public class QuestionnaireController {
 			}
 			//Toma doda
 			user.setPoints(newPoints);
+			q.addParticipant(user);
 			userService.updateUser(user);
 		}
 		
