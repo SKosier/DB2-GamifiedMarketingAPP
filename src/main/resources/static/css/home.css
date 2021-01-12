@@ -1,0 +1,86 @@
+body {
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.center {
+	margin-top: 3%;
+	margin-right: 5%;
+	margin-left: 5%;
+	margin-bottom: 5%;
+	background-color: #e7e7e7;
+}
+
+.rectangle {
+	height: 800px;
+	padding: 1%;
+	padding-top: 2px;
+	background-color: white;
+}
+
+
+
+.prva {
+	table-layout: auto;
+	border: 1px solid black;
+	width: 80%;
+}
+.tablica {
+	table-layout: auto;
+	padding: 15px;
+}
+th, td {
+ 	padding: 5px;
+}
+.somelink {
+	color: rgba(255,255,255,1);
+	color: black;
+	font-size: 20px;
+}
+
+.info{
+	width: 100%;
+	text-align: center;
+	position: relative;
+	margin-top: 1%;
+	padding-top: 1px;
+	padding-bottom: 2%;
+	background-color: rgba(221,0,0,1);
+	border-radius: 20px;
+	
+}
+.uname {
+	font-size: 30px;
+	color: white;
+}
+
+.col {
+  float: left;
+  width: 33%;
+  text-align: center;
+  margin: 2px;
+  margin-top: 10px;
+  height: 600px;
+  font-size: 18px;
+}
+.q{
+  background-image: url("../images/red_bckg_v2.png");
+  background-size: 400px 400px;
+}
+.r{
+  background-color: rgba(255,200,1,0.8);
+ 
+  border-radius: 15px;
+}
+
+.col img {
+	max-height: 600px;
+	max-width: 400px;
+		
+}
+
+/* Clear floats after the columns */
+.colholder:after {
+  content: "";
+  display: table;
+  clear: both;
+}

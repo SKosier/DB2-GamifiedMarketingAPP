@@ -1,3 +1,9 @@
+
+
+.center {
+	font-family: 'Ubuntu', sans-serif;
+
+	}
 .error {
 	margin-top: -20px;
 	margin-bottom: 15px;
@@ -9,10 +15,11 @@
 	font-weight: bold;
 	font-size: 90%;
 	font-family: Verdana, sans-serif;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 .center {
-	margin-top: 5%;
+	margin-top: 3%;
 	margin-right: 10%;
 	margin-left: 10%;
 	margin-bottom: 3%;
@@ -56,6 +63,7 @@
 
 .heading {
 	font-family: Verdana, sans-serif;
+	font-family: 'Ubuntu', sans-serif;
 	font-stretch: extra-expanded;
 	text-align: center;
 	margin-left: 22%;
@@ -104,53 +112,77 @@ form {
 	color: white;
 	vertical-align: middle;
 	display: inline-block;
-	background: #44AA44;
+	background: rgba(221,0,0,1);
 }
-
+.formControls:hover {
+	background-color: rgba(221,0,0,0.6);
+}
+.formControls:active {
+	background-color: rgba(0,0,0,0.6);
+	transform: translateY(3px);
+}
+.fcyel{
+	background: rgba(255,200,1,1);
+	}
+.fcyel:hover{
+	background: rgba(255,200,1,0.6);
+	}
+.fcyel:active {
+	background-color: rgba(0,0,0,0.6);
+	transform: translateY(3px);
+}
 .cancel {
 	background: white;
-	color: #b90000;
+	color: black;
 }
-
-.formControls:hover {
-	background-color: #3e8e41;
+.cancelyel {
+	color: black
 }
 
 .cancel:hover {
-	background-color: #e7e7e7;
+	background-color: rgba(0,0,0,0.3);
+}
+.cancel:active {
+	color: white;
+	background-color: rgba(0,0,0,1);
+	transform: translateY(3px);
 }
 
+
+
 .title {
+	font-family: 'Ubuntu', sans-serif;
   	left: 25%; 
  	font-size: 1cm;	 
 	position: absolute;
 	top: 3%;
 	text-align:center;
-	color: white;
-	margin-left: 3%;
+	color: black;
+	margin-left: 5%;
 	margin-right: 3%;
 	text-align: center;
-	font-size: 1cm;
+	font-size: 30px;
 	font-weight: bold;
 	
 }
 
 .title2 {
+	font-family: 'Ubuntu', sans-serif;
  	font-size: 1cm;	 
 	position: absolute;
 	top: 3%;
-	color: white;
-	margin-left: 6%;
+	color: black;
+	margin-left: 12%;
 	text-align: center;
-	font-size: 1cm;
+	font-size: 30px;
 	font-weight: bold;
 	
 }
 
 .description {
 	position: absolute;
-	top: 25%;
-	color: white;
+	top: 15%;
+	color: rgb(0, 0, 0);
 	margin-left: 3%;
 	margin-right: 3%;
 	text-align: center;
@@ -162,12 +194,29 @@ form {
 	bottom: 22%;
 	margin-left: 35%;
 	margin-right: 35%;
-	width: 150px;
-	height: 40px;
-	padding: 10px;
-	background-color: transparent;
+	right: 10%;
+	width: 160px;
+	height: 50px;
+	background-color: rgba(40,40,40,1);
+	color:white;
+	border: 5px solid #FFFFFF;
 }
 .reg-button:hover {
-	border-width: 2px;
-	background-color: transparent;
+	background-color: rgba(160,160,160,1);
+}
+.reg-button:active {
+	background-color: rgba(221,0,0,1);
+  	transform: translateY(3px);
+}
+.yel:active {
+	background-color: rgba(255,200,1,1);
+  	transform: translateY(3px);
+}
+
+* {
+	font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+	font-family: 'Ubuntu', sans-serif;
 }

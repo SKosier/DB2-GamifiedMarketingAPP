@@ -2,69 +2,76 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Creation</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link href="css/home.css" rel="stylesheet" type="text/css">
-	<style>
-		.prva {
-			table-layout: auto;
-  			border: 1px solid black;
-		}
-		.tablica {
-			table-layout: auto;
-			padding: 15px;
-		}
-		th, td {
-    		padding: 5px;
-		}
-	</style>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
 </head>
 
-<body>
-	<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
-	<a href="/logout">Logout</a>
-	<p th:text="'Check the todays leaderboard '"></p>
-	<a href="/leaderboard">Leaderboard</a>
-	
-	<h1>Welcome!</h1>
-	<div th:if="${questToday != null}">
-		Today's product is: <br><br>
-		<b><span th:text="${questToday.getProductName()}"></span></b>
-		<br>
-		<img th:src="'uploads/' + ${questToday.getPhoto()}"/>
-		
-		<div th:if="${submittedAnswer == null}">
-			<p>Fill out the questionnaire for the product of the day <a href="/questionnaire">here</a></p>
-		</div>
-		<div th:if="${submittedAnswer != null}">
-			<p>You already filled out questionnaire for today!<br>Come back tomorrow!
-		</div>
-	</div>
-	
-	<div th:if="${questToday == null}">
-		There is no questionnaire for today! <br>
-		But come back tomorrow!
-	</div>
-	
-	<h2>Read reviews</h2>
-	
-	<table class="prva">
-		<tr class="border_bottom">
-			<th>No</th>
-			<th>Question</th>
-			<th class="zadnji">Answers</th>
-		</tr>
-		<tr th:each="entry, stat : ${questions}">
-			<td th:text="${stat.index + 1}">1</td>
-			<td th:text="${questions.get(entry.key)}">question</td>
-			<td style="min-width:300px">
-				<table class="tablica">
-					<tr th:each="review : ${reviews.get(entry.key)}">
-						<td th:text="${review}"></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	</table>
+<body class="center">
+	<div class="rectangle">
 
+		<div class="info">
+			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
+			<a class="somelink" href="/logout">Logout</a>
+		</div>
+		<div class="colholder">		
+			<div class="col q">
+				<p th:text="'Check the todays leaderboard '"></p>
+				<a href="/leaderboard">Leaderboard</a>
+				<div th:if="${questToday == null}">
+					There is no questionnaire for today! <br>
+					But come back tomorrow!
+				</div>
+				<div th:if="${submittedAnswer == null}">
+					<p>Fill out the questionnaire for the product of the day <a href="/questionnaire">here</a></p>
+				</div>
+				<div th:if="${submittedAnswer != null}">
+					<p>You already filled out questionnaire for today!<br>Come back tomorrow!
+				</div>
+			</div>
+			<div class="col">	<h1>Welcome!</h1>
+				<div th:if="${questToday != null}">
+				Today's product is: <br><br>
+				<b><span th:text="${questToday.getProductName()}"></span></b>
+				<br>
+				<br>
+				<img th:src="'uploads/' + ${questToday.getPhoto()}"/>
+				<!--  <img src="../images/test.png"/>		 -->
+				</div>
+			</div>
+			<div class="col r">
+				<h2>Read reviews</h2>
+	
+				<table class="prva">
+				<tr class="border_bottom">
+					<th>No</th>
+					<th>Question</th>
+					<th class="zadnji">Answers</th>
+				</tr>
+				<tr th:each="entry, stat : ${questions}">
+					<td th:text="${stat.index + 1}">1</td>
+					<td th:text="${questions.get(entry.key)}">question</td>
+					<td style="min-width:250px;text-align:center">
+					<table class="tablica">
+						<tr th:each="review : ${reviews.get(entry.key)}">
+							<td th:text="${review}"></td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+				</table>
+			</div>
+		</div>
+
+
+	
+
+	
+
+	
+
+</div>
 </body>
 </html>
