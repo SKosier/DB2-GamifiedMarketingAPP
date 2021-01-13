@@ -11,7 +11,8 @@ body {
 }
 
 .rectangle {
-	height: 800px;
+	min-height: 600px;
+	height: auto;
 	padding: 1%;
 	padding-top: 2px;
 	background-color: white;
@@ -20,6 +21,8 @@ body {
 
 
 .prva {
+	margin-left: auto;
+	margin-right: auto;
 	table-layout: auto;
 	border: 1px solid black;
 	width: 80%;
@@ -30,11 +33,24 @@ body {
 }
 th, td {
  	padding: 5px;
+ 	font-family: 'Ubuntu', sans-serif;
 }
 .somelink {
-	color: rgba(255,255,255,1);
-	color: black;
+color: rgba(221,0,0,1);
 	font-size: 20px;
+}
+
+::placeholder{
+font-family: 'Ubuntu', sans-serif;
+}
+textarea{
+	border: 4px solid;
+	border-color: rgba(221,0,0,1);
+	padding: 5px;
+	margin: 5px;
+	border-radius: 15px;
+	font-family: 'Ubuntu', sans-serif;
+	
 }
 
 .info{
@@ -44,13 +60,15 @@ th, td {
 	margin-top: 1%;
 	padding-top: 1px;
 	padding-bottom: 2%;
-	background-color: rgba(221,0,0,1);
+	color: black;
+	background-size: 1300px 150px;
+	background-repeat: no-repeat;
 	border-radius: 20px;
 	
 }
 .uname {
 	font-size: 30px;
-	color: white;
+	color: black;
 }
 
 .col {
@@ -63,18 +81,23 @@ th, td {
   font-size: 18px;
 }
 .q{
-  background-image: url("../images/red_bckg_v2.png");
-  background-size: 400px 400px;
+  width: 33%;
 }
 .r{
-  background-color: rgba(255,200,1,0.8);
+  width: 65%;
  
   border-radius: 15px;
 }
+a {
+color: rgba(221,0,0,1);
+}
 
 .col img {
-	max-height: 600px;
-	max-width: 400px;
+	max-height: 500px;
+	max-width: 300px;
+	border: 4px black solid;
+	border-radius: 15px;
+	padding: 20px;
 		
 }
 

@@ -3,14 +3,61 @@
 <head>
     <title>Gamified Marketing Application</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
+    <link href="css/index.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-	<h1>Welcome to the main page of this project!</h1>
-	<p>Registration <a href="/registration">here</a></p>
-	<p>Future main page (log in) <a href="/login">here</a></p>
+<body class="center">
+
+		<div class="rectangle">
+			 <img width="500px" height="200px" src="../images/logo.png"/>	
+			<h1>Welcome to the main page of this project!</h1>
+			<div class="ele_inline">
+				<span>Register to our page</span>
+				<button id="myButtonReg" class="formControls">here</button>
+				<script type="text/javascript">
+		   			 document.getElementById("myButtonReg").onclick = function () {
+		        location.href = "/registration";
+		    	};
+				</script>
+			</div>
+			<br><br>
+			<div class="ele_inline">
+				<button id="myButtonLog" class="formControls yel">Login</button>
+				<script type="text/javascript">
+		   			 document.getElementById("myButtonLog").onclick = function () {
+		        location.href = "/login";
+		    	};
+				</script>
+				<span>to your account</span>
+			</div>
+						<br><br>
+						
+			<div class="ele_inline">
+				<span>Creation page (admin only) </span>
+				<button id="myButtonCr" class="formControls">here</button>
+				<script type="text/javascript">
+		   			 document.getElementById("myButtonCr").onclick = function () {
+		        location.href = "/creation";
+		    	};
+				</script>
+			</div>
+						<br><br>
+			<div class="ele_inline">
+				<button id="myButtonHome" class="formControls yel">Home</button>
+				<script type="text/javascript">
+		   			 document.getElementById("myButtonHome").onclick = function () {
+		        location.href = "/home";
+		    	};
+				</script>
+				<span>(you have to be logged in, otherwise it sends you to log in)</span>
+			</div>
+			
+			<div class="bot_text">
+				<p> Made by: Kosier, Sikora, Medvedec; PoliMi 2021</p>
+			</div>
+	</div>
 	
-	<p>Creation (only admin; Letizia) <a href="/creation">here</a></p>
-	<p>Home (you have to be logged in, otherwise it sends you to log in) <a href="/home">here</a></p> 
+
 </body>
 </html>

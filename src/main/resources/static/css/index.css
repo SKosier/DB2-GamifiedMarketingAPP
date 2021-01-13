@@ -1,0 +1,60 @@
+body {
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.center {
+	margin-top: 3%;
+	margin-right: 10%;
+	margin-left: 10%;
+	margin-bottom: 3%;
+	top: 10%;
+	background-color: #e7e7e7;
+	text-align:center;
+}
+
+.rectangle {
+	height: 600px;
+	padding-left: 0%;
+	padding-top: 0;
+	background-color: white;
+	position: relative;
+}
+
+.formControls {
+	border: 1px solid #D0D0D0;
+	border-radius: 15px;
+	width: 90px;
+	height: 30px;
+	text-align: top;
+	font-weight: bold;
+	font-size: 100%;
+	color: white;
+	vertical-align: middle;
+	display: inline-block;
+	background: rgba(221,0,0,1);
+}
+.formControls:hover {
+	background-color: rgba(221,0,0,0.6);
+}
+.formControls:active {
+	background-color: rgba(0,0,0,0.6);
+	transform: translateY(3px);
+}
+.yel {
+	background-color: rgba(255,200,1,1);
+}
+.yel:hover {
+	background-color: rgba(255,200,1,0.6);
+}
+
+.ele_inline {
+		margin: 20px;
+		padding: 20px;
+      	display: inline;
+}
+.bot_text{
+    position:absolute;
+    width:100%;
+    bottom:0;
+	color: lightgrey;
+}

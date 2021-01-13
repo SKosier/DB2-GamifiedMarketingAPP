@@ -17,21 +17,8 @@
 			<a class="somelink" href="/logout">Logout</a>
 		</div>
 		<div class="colholder">		
-			<div class="col q">
-				<p th:text="'Check the todays leaderboard '"></p>
-				<a href="/leaderboard">Leaderboard</a>
-				<div th:if="${questToday == null}">
-					There is no questionnaire for today! <br>
-					But come back tomorrow!
-				</div>
-				<div th:if="${submittedAnswer == null}">
-					<p>Fill out the questionnaire for the product of the day <a href="/questionnaire">here</a></p>
-				</div>
-				<div th:if="${submittedAnswer != null}">
-					<p>You already filled out questionnaire for today!<br>Come back tomorrow!
-				</div>
-			</div>
-			<div class="col">	<h1>Welcome!</h1>
+
+			<div class="col q">	<h1>Welcome!</h1>
 				<div th:if="${questToday != null}">
 				Today's product is: <br><br>
 				<b><span th:text="${questToday.getProductName()}"></span></b>
@@ -53,7 +40,7 @@
 				<tr th:each="entry, stat : ${questions}">
 					<td th:text="${stat.index + 1}">1</td>
 					<td th:text="${questions.get(entry.key)}">question</td>
-					<td style="min-width:250px;text-align:center">
+					<td style="min-width:400px;text-align:center">
 					<table class="tablica">
 						<tr th:each="review : ${reviews.get(entry.key)}">
 							<td th:text="${review}"></td>
@@ -62,6 +49,19 @@
 					</td>
 				</tr>
 				</table>
+				<br><br>
+				<p th:text="'Check the todays leaderboard '"></p>
+				<a href="/leaderboard">Leaderboard</a>
+				<div th:if="${questToday == null}">
+					There is no questionnaire for today! <br>
+					But come back tomorrow!
+				</div>
+				<div th:if="${submittedAnswer == null}">
+					<p>Fill out the questionnaire for the product of the day <a href="/questionnaire">here</a></p>
+				</div>
+				<div th:if="${submittedAnswer != null}">
+					<p>You already filled out questionnaire for today!<br>Come back tomorrow!
+				</div>
 			</div>
 		</div>
 
