@@ -46,4 +46,10 @@ public class AnswerServiceJPA implements AnswerService {
 	public List<Answer> findByUserAndQuestionnaire(Integer userId, Integer questionnaireId) {
 		return answerRepo.findByUserIdAndQuestionnaireId(userId, questionnaireId);
 	}
+	
+	@Override
+	public Answer removeAnswer(Answer answer) {
+		answerRepo.delete(answer);
+		return answer;
+	}
 }

@@ -46,4 +46,10 @@ public class QuestionnaireServiceJPA implements QuestionnaireService {
 	public Optional<Questionnaire> findByDate(Date date) {
 		return questionnaireRepo.findByDate(date);
 	}
+	
+	@Override
+	public Questionnaire removeQuestionnaire(Questionnaire questionnaire) {
+		 questionnaireRepo.delete(questionnaire);
+		return questionnaire;
+	}
 }

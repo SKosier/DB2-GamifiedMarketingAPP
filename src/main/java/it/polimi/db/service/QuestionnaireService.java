@@ -16,5 +16,7 @@ public interface QuestionnaireService {
 	Questionnaire createQuestionnaire(Questionnaire questionnaire);
 
 	Questionnaire updateQuestionnaire(Questionnaire questionnaire);
+	
+	Questionnaire removeQuestionnaire(Questionnaire questionnaire);
 
 }

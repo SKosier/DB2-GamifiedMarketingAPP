@@ -17,4 +17,6 @@ public interface AnswerService {
 	Answer createAnswer(Answer answer);
 	
 	Answer updateAnswer(Answer answer);
+	
+	Answer removeAnswer(Answer answer);
 }

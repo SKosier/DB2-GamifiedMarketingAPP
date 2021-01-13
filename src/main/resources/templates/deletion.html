@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Deletion</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="css/home.css" rel="stylesheet" type="text/css">
+	<style>
+		th, td {
+    		padding: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<div th:if="${session.isAdministrator}">
+		<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
+		<a href="/home">Home</a>	
+		
+		<h1>Are you sure you want to delete yesterday's questionnaire?</h1>
+		
+		<form action="deletion" method="post">
+				<button type="submit" name="method" value="Delete">Delete questionnaire</button>
+			</form>
+	</div>
+	<div th:unless="${session.isAdministrator}">
+		You are not administrator!
+		<br>
+		<a href="/home">Home</a>	
+	</div>
+</body>
+</html>
