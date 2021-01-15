@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Creation</title>
+<title>Inspection</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="css/home.css" rel="stylesheet" type="text/css">
 </head>
@@ -11,14 +11,14 @@
 			padding: 15px solid black;
 			border: 1px solid black;
 			border-spacing: 5px;
-  			text-align: center;
+  			text-align: left;
 		}
 		.subtablica {
 			table-layout: auto;
   			padding: 15px solid black;
   			border: 15px;
   			border-spacing: 15px;
-  			text-align: center;
+  			text-align: left;
 		}
 		th, td {
     		padding: 15px solid black;
@@ -73,15 +73,15 @@
 					
 			<table class="tablica">
 				<tr class="border_bottom">
-					<th>User</th>
+					<th>Question</th>
 					<th>Answers</th>
 				</tr>
-				<tr th:each="entry, stat : ${responses}">
-					<td th:text="${entry.key.getUsername()}">user</td>
+				<tr th:each="entry, stat : ${qAndAs}">
+					<td th:text="${entry.key.getQuestion()}">user</td>
 					<td style="min-width:300px">
 						<table class="subtablica">
 							<tr th:each="answer : ${entry.value}">
-								<td th:text="${answer.getText()}"></td>
+								<td th:text="${answer}"></td>
 							</tr>
 						</table>
 					</td>
@@ -104,10 +104,8 @@
 			</form>
 			
 		</div>
-		<br>
-		<form action="" method="post">
-	    	<button type="submit" name="method" value="Home">Home</button>
-		</form>
+		<br><br>
+		<a href="/home">Home</a>
 	</div>
 	<div th:unless="${session.isAdministrator}">
 		You are not administrator!

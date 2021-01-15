@@ -12,6 +12,8 @@ public interface AnswerService {
 
 	List<Answer> findByUserAndQuestionnaire(Integer userId, Integer questionnaireId);
 	
+	List<Answer> findByQuestionAndQuestionnaire(Integer questionId, Integer questionnaireId);
+	
 	Optional<Answer> findByUserAndQuestionnaireAndQuestion(Integer user_id, Integer questionnaire_id, Integer question_id);
 
 	Answer createAnswer(Answer answer);

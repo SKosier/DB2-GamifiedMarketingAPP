@@ -26,10 +26,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import it.polimi.db.entity.Answer;
 import it.polimi.db.entity.Question;
 import it.polimi.db.entity.Questionnaire;
+import it.polimi.db.entity.Statistic;
 import it.polimi.db.entity.User;
 import it.polimi.db.form.AnswersForm;
 import it.polimi.db.service.AnswerService;
 import it.polimi.db.service.QuestionnaireService;
+import it.polimi.db.service.StatisticService;
 import it.polimi.db.service.UserService;
 
 @Controller
@@ -42,9 +44,20 @@ public class DeletionController {
 	@Autowired
 	private AnswerService answerService;
 	
+	@Autowired
+	private StatisticService statService;
+	
 	@GetMapping("")
 	public String showPage(Model model, HttpServletRequest req) {
 		return "deletion";
+	}
+	
+	@ModelAttribute("yesterdaysQuestionnaire")
+	public Questionnaire getYesterdaysQuestionnaire() {
+		Optional<Questionnaire> yesterdays = questionnaireService.findByDate(new Date(System.currentTimeMillis()));//-24*60*60*1000));
+		if (yesterdays.isPresent()) 
+			 return yesterdays.get();
+		return null;
 	}
 	
 	@RequestMapping("")
@@ -52,7 +65,7 @@ public class DeletionController {
 			BindingResult bindingResult, Model model, HttpServletRequest req) throws IOException {
 
 		if (method.equals("Delete")) {
-			Optional<Questionnaire> yesterdays = questionnaireService.findByDate(new Date(System.currentTimeMillis()-24*60*60*1000));
+			Optional<Questionnaire> yesterdays = questionnaireService.findByDate(new Date(System.currentTimeMillis()));//-24*60*60*1000));
 			if (yesterdays.isPresent()) {
 				 Questionnaire questionnaire = yesterdays.get();
 				 questionnaireService.removeQuestionnaire(questionnaire);
@@ -60,6 +73,12 @@ public class DeletionController {
 				 for(Answer a : answers) {
 					 answerService.removeAnswer(a);
 				 }
+				 List<Statistic> stats = statService.listAll();
+				 for(Statistic s : stats) {
+					 if(s.getQuestionnaireId()==questionnaire.getId())
+						 statService.removeStatistic(s);
+				 }
+				 
 				 model.addAttribute("msg", "Thank you for deleting the questionnaire!");
 			}
 			else {

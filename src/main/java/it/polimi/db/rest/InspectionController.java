@@ -2,6 +2,7 @@ package it.polimi.db.rest;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,8 +36,6 @@ import it.polimi.db.service.UserService;
 @Controller
 @RequestMapping("/inspection")
 public class InspectionController {
-	
-	int questionnaireId=-1;
 
 	@Autowired
 	private QuestionnaireService questionnaireService;
@@ -62,47 +61,6 @@ public class InspectionController {
 	public List<Questionnaire> getQuestionnaireList() {
 		return questionnaireService.listAll();
 	}
-
-	@ModelAttribute("questionnaireChoice")
-	public Questionnaire getChosen() {
-		if(questionnaireId==-1)
-			return null;
-		return questionnaireService.fetch(questionnaireId);
-	}
-	
-	@ModelAttribute("participantsSubmitted")
-	public Set<User> getSubmitted() {
-		if(questionnaireId==-1)
-			return null;
-		return getChosen()
-				.getParticipants()
-				.stream()
-				.filter(participant->
-				statisticService.findByUserAndQuestionnaire(participant.getId(), questionnaireId).isPresent()
-				&& !statisticService.findByUserAndQuestionnaire(participant.getId(), questionnaireId).get().isCanceled()).collect(Collectors.toSet());
-	}
-
-	@ModelAttribute("participantsCancelled")
-	public Set<User> getCancelled() {
-		if(questionnaireId==-1)
-			return null;
-		
-		return userService
-				.listAll()
-				.stream()
-				.filter(participant->
-				statisticService.findByUserAndQuestionnaire(participant.getId(), questionnaireId).isPresent()
-				&& statisticService.findByUserAndQuestionnaire(participant.getId(), questionnaireId).get().isCanceled()).collect(Collectors.toSet());
-	}
-	
-	@ModelAttribute("responses")
-	public Map<User, List<Answer>> getResponses() {
-		if(questionnaireId==-1)
-			return null;
-		Map<User,List<Answer>> responses = new HashMap<User,List<Answer>>();
-		getChosen().getParticipants().forEach(user->responses.put(user, answerService.findByUserAndQuestionnaire(user.getId(), getChosen().getId())));
-		return responses;
-	}
 	
 	@RequestMapping("/submit")
 	public String chooseQuestionnaire(@RequestParam("method") String method, final Answer postAnswer,
@@ -112,22 +70,41 @@ public class InspectionController {
 			
 			if(questionnaireDate != null) {
 				Optional<Questionnaire> qTemp = questionnaireService.findByDate(Date.valueOf(questionnaireDate));
-				if(qTemp.isPresent())
-					this.questionnaireId = qTemp.get().getId();
+				if(qTemp.isPresent()) {
+					Questionnaire q = qTemp.get();
+					model.addAttribute("questionnaireChoice", q);
+					model.addAttribute("participantsSubmitted",
+							q
+							.getParticipants()
+							.stream()
+							.filter(participant->
+							statisticService.findByUserAndQuestionnaire(participant.getId(), q.getId()).isPresent()
+							&& !statisticService.findByUserAndQuestionnaire(participant.getId(), q.getId()).get().isCanceled()).collect(Collectors.toSet())
+							);
+					model.addAttribute("participantsCancelled",
+							userService
+							.listAll()
+							.stream()
+							.filter(participant->
+							statisticService.findByUserAndQuestionnaire(participant.getId(), q.getId()).isPresent()
+							&& statisticService.findByUserAndQuestionnaire(participant.getId(), q.getId()).get().isCanceled()).collect(Collectors.toSet())
+							);
+					
+					Map<Question,List<String>> qAndAs = new HashMap<Question,List<String>>();
+					for(Question question : q.getQuestions()) {
+						List<Answer> answers = answerService.findByQuestionAndQuestionnaire(question.getId(), q.getId());
+						List<String> userAndA = new ArrayList<>();
+						for(Answer ans : answers)
+							userAndA.add("("+userService.fetch(ans.getUserId()).getUsername()+") " + ans.getText());
+						qAndAs.put(question, userAndA);
+					}
+					model.addAttribute("qAndAs", qAndAs);
+				}
 			}
 			
-			return "redirect:/inspection";
+			return "/inspection";
 		}
 		return "redirect:/home";
 	}
 	
-	@RequestMapping("")
-	public String goHome(@RequestParam("method") String method, final Answer postAnswer,
-			BindingResult bindingResult, Model model, HttpServletRequest req) throws IOException {
-		if(method.equals("Home")) {
-			questionnaireId = -1;
-			return "redirect:/home";
-		}
-		return "redirect:/home";
-	} 
 }
