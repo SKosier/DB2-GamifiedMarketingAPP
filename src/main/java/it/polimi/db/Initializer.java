@@ -1,6 +1,8 @@
 package it.polimi.db;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,12 +10,16 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import it.polimi.db.entity.Answer;
 import it.polimi.db.entity.Question;
 import it.polimi.db.entity.Questionnaire;
+import it.polimi.db.entity.Statistic;
 import it.polimi.db.entity.User;
 import it.polimi.db.entity.UserType;
+import it.polimi.db.service.AnswerService;
 import it.polimi.db.service.QuestionService;
 import it.polimi.db.service.QuestionnaireService;
+import it.polimi.db.service.StatisticService;
 import it.polimi.db.service.UserService;
 import it.polimi.db.util.Util;
 
@@ -27,39 +33,48 @@ public class Initializer {
 
 	@Autowired
 	QuestionnaireService questionnaireService;
+	
+	@Autowired
+	AnswerService answerService;
 
+	@Autowired
+	StatisticService statService;
+	
 	@Value("${db2.test.user.names}")
 	private String testNames;
 
 	@EventListener
 	public void appReady(ApplicationReadyEvent event) {
 		String[] names = testNames.split(",");
-		User user = null;
+		List<User> users = new ArrayList<>();
+		
 		for (int i = 0; i < names.length; i++) {
-			user = makeUser(names[i]);
-			userService.createUser(user);
+			users.add(makeUser(names[i]));
 		}
+		users.stream().forEach(u -> userService.createUser(u));
 
 		Questionnaire q1 = new Questionnaire();
-		questionnaireService.createQuestionnaire(q1);
-
 		Questionnaire q2 = new Questionnaire();
-		questionnaireService.createQuestionnaire(q2);
+		Questionnaire q3 = new Questionnaire();
 
+		questionnaireService.createQuestionnaire(q1);
+		questionnaireService.createQuestionnaire(q2);
+		questionnaireService.createQuestionnaire(q3);
+		
 		String[] list = { "What do you think about this product?", "Would you buy this product?",
 				"Would you recomend this product to your friends?",
-				"Do you think this product is pricey?" }; 
+				"Do you think this product is pricey?", 
+				"What would you suggest us regarding the product?"};
+		
 		for (int i = 0; i < list.length; i++) {
 			Question qu = new Question();
 			qu.setQuestion(list[i]);
 			qService.createQuestion(qu);
 
-			if (i < 2) {
-				q1.addQuestion(qu);
-				q2.addQuestion(qu);
-			}
-			
-			if (i == 3) {
+			if (i % 2 == 0) {
+				q1.addQuestion(qu);		
+				q3.addQuestion(qu);
+			} else {
 				q2.addQuestion(qu);
 			}
 		}
@@ -69,12 +84,41 @@ public class Initializer {
 		q1.setProductName("Birra Moretti");
 		q1.setPhoto("moretti.jpg");
 		
-		//not allowed but just to have it in database (the day after tomorrow)
-		today = new Date(System.currentTimeMillis() + 2*1000*60*60*24);
-		q2.setDate(today);
+		q2.setDate(new Date(System.currentTimeMillis() - 1000*60*60*24));
+		q2.setProductName("Ichnusa");
+		q2.setPhoto("Birra Ichnusa.jpg");
+		
+		q3.setDate(new Date(System.currentTimeMillis() + 1000*60*60*24));
+		q3.setProductName("Birra Peroni");
+		q3.setPhoto("peroni.png");
+		
+		createAnswers(q2, users);
+		users.stream().forEach(u -> q2.addParticipant(u));
 		
 		questionnaireService.updateQuestionnaire(q1);
 		questionnaireService.updateQuestionnaire(q2);
+		questionnaireService.updateQuestionnaire(q3);
+	}
+
+	private void createAnswers(Questionnaire q2, List<User> users) {
+		for(User u : users) {
+			for(Question q : q2.getQuestions()) {
+				Answer a = new Answer();
+				a.setQuestionId(q.getId());
+				a.setQuestionnaireId(q2.getId());
+				a.setUserId(u.getId());
+				a.setText("answer by: " + u.getUsername() + " for question " + q.getQuestion());
+				answerService.createAnswer(a);
+			}
+			Statistic stat = new Statistic();
+			stat.setAge("YOUNG ADULT");
+			stat.setCanceled(false);
+			stat.setExpertiseLevel("MEDIUM");
+			stat.setQuestionnaireId(q2.getId());
+			stat.setSex("O");
+			stat.setUser_id(u.getId());
+			statService.createStatistic(stat);
+		}
 	}
 
 	private User makeUser(String name) {
