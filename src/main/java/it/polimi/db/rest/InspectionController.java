@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import it.polimi.db.entity.Answer;
 import it.polimi.db.entity.Question;
 import it.polimi.db.entity.Questionnaire;
-import it.polimi.db.entity.Statistic;
-import it.polimi.db.entity.User;
-import it.polimi.db.form.AnswersForm;
 import it.polimi.db.service.AnswerService;
 import it.polimi.db.service.QuestionService;
 import it.polimi.db.service.QuestionnaireService;
@@ -65,45 +61,42 @@ public class InspectionController {
 	@RequestMapping("/submit")
 	public String chooseQuestionnaire(@RequestParam("method") String method, final Answer postAnswer,
 			BindingResult bindingResult, Model model, HttpServletRequest req) throws IOException {
+	
 		if(method.equals("Choose")) {
 			String questionnaireDate = req.getParameter("questionnaireDate");
-			
 			if(questionnaireDate != null) {
 				Optional<Questionnaire> qTemp = questionnaireService.findByDate(Date.valueOf(questionnaireDate));
+		
 				if(qTemp.isPresent()) {
 					Questionnaire q = qTemp.get();
 					model.addAttribute("questionnaireChoice", q);
 					model.addAttribute("participantsSubmitted",
-							q
-							.getParticipants()
-							.stream()
-							.filter(participant->
-							statisticService.findByUserAndQuestionnaire(participant.getId(), q.getId()).isPresent()
-							&& !statisticService.findByUserAndQuestionnaire(participant.getId(), q.getId()).get().isCanceled()).collect(Collectors.toSet())
-							);
+							q.getParticipants()
+							 .stream()
+							 .filter(participant->
+							 statisticService.findByUserAndQuestionnaire(participant.getId(), q.getId()).isPresent()
+							 && !statisticService.findByUserAndQuestionnaire(participant.getId(), q.getId()).get().isCanceled()).collect(Collectors.toSet()));
+				
 					model.addAttribute("participantsCancelled",
-							userService
-							.listAll()
-							.stream()
-							.filter(participant->
-							statisticService.findByUserAndQuestionnaire(participant.getId(), q.getId()).isPresent()
-							&& statisticService.findByUserAndQuestionnaire(participant.getId(), q.getId()).get().isCanceled()).collect(Collectors.toSet())
-							);
+							userService.listAll()
+									   .stream()
+									   .filter(participant->
+									    statisticService.findByUserAndQuestionnaire(participant.getId(), q.getId()).isPresent()
+										&& statisticService.findByUserAndQuestionnaire(participant.getId(), q.getId()).get().isCanceled()).collect(Collectors.toSet()));
 					
 					Map<Question,List<String>> qAndAs = new HashMap<Question,List<String>>();
 					for(Question question : q.getQuestions()) {
 						List<Answer> answers = answerService.findByQuestionAndQuestionnaire(question.getId(), q.getId());
 						List<String> userAndA = new ArrayList<>();
-						for(Answer ans : answers)
-							userAndA.add("("+userService.fetch(ans.getUserId()).getUsername()+") " + ans.getText());
+						for(Answer ans : answers) userAndA.add("("+userService.fetch(ans.getUserId()).getUsername()+") " + ans.getText());
 						qAndAs.put(question, userAndA);
 					}
 					model.addAttribute("qAndAs", qAndAs);
 				}
 			}
-			
 			return "/inspection";
 		}
+		
 		return "redirect:/home";
 	}
 	
