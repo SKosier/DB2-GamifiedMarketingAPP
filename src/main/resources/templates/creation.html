@@ -1,9 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-	<title>Home</title>
+	<title>Creation</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link href="css/home.css" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
 	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
    		onload="renderMathInElement(document.body);"></script>
@@ -50,21 +52,34 @@
 
 </head>
 
-<body>
+<body class="center yellow">
+	<div class="rectangle">
 	
-	<div th:if="${session.isAdministrator}">
-		<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
-		<a href="/logout">Logout</a><br><br>
+
+		<div class="info">
+			<div th:if="${session.isAdministrator}">
+			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
+			<a class="formControls fcyel" href="/logout">Logout</a>
+			</div>
+		</div>
+		<hr class="three">
+		<div class="colholder">		
+
+			<div class="cube">
 		
 		<form action="creation" method="post" enctype="multipart/form-data">
 			<p><b>Upload photo of product of the day: </b></p>
-			<input type="file" name="photo" accept="image/*" required>
+			<label class="formControls fcyel">
+				<input type="file" name="photo" accept="image/*" required>
+				Upload file
+			</label>
+			
 		
 			<br><br><p><b>Insert name of the product: </b><br></p>
 			<div th:if="${questForm.containsError('name')}">
 			   	<p style="color:red;" class="error" th:each="err : ${questForm.getError('date')}" th:text="${err}"></p>
 			</div>
-			<textarea name="name" placeholder="Name the product..." rows="3" cols="80" required></textarea>
+			<textarea name="name" class="yellow small" placeholder="Name the product..." rows="3" cols="80" required></textarea>
 		
 			<br><br><p><b>Please select date for the questionnaire: </b><br></p>
 			<div th:if="${questForm.containsError('date')}">
@@ -83,24 +98,27 @@
 				
 				<div id="testCases">
 					<div th:if="${questForm.getQuestions().isEmpty()}">
-						Q1: <textarea name="input-1" placeholder="Put your question here..." rows="3" cols="80"></textarea>
+						Q1: <textarea class="yellow" name="input-1" placeholder="Put your question here..." rows="3" cols="80"></textarea>
 					</div>
 					
 					<div class="con" th:if="${!questForm.getQuestions().isEmpty()}" th:each="question : ${questions}">
 						Q[[${questions.indexOf(question)+1}]]:  
 						<textarea th:name="'input-' + ${questions.indexOf(question)+1}" placeholder="Question" rows="3" cols="80" th:text="${question}"></textarea>
-				       	<input th:if="${questions.indexOf(question)+1 > 1}" type="button" value="Remove"/><br>
+				       	<input th:if="${questions.indexOf(question)+1 > 1}" type="button" class="formControls fcyel" value="Remove"/><br>
 					</div>
 				</div>
 			<br>
-			<input id="btnAdd" type="button" value="Add" /><br><br>
-			  <button type="submit" name="method" value="Save">Save</button>
-			  <button type="submit" name="method" value="Cancel">Cancel</button>
+			<input id="btnAdd" class="formControls fcyel" type="button" value="Add" /><br><br>
+			  <button type="submit" class="formControls fcyel" name="method" value="Save">Save</button>
+			  <button type="submit" class="formControls fcyel" name="method" value="Cancel">Cancel</button>
 		</form>
 	</div>
 	
 	<div th:unless="${session.isAdministrator}">
 		You are not administrator!
+	</div>
+	</div>
+	</div>
 	</div>
 </body>
 </html>

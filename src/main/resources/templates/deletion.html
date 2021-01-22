@@ -3,7 +3,9 @@
 <head>
 	<title>Deletion</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link href="css/home.css" rel="stylesheet" type="text/css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
+	<link href="css/style.css" rel="stylesheet" type="text/css">
 	<style>
 		th, td {
     		padding: 5px;
@@ -11,25 +13,37 @@
 	</style>
 </head>
 
-<body>
-	<div th:if="${session.isAdministrator}">
-		<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
-		<a href="/home">Home</a>	
-		<br><br>
+<body class="center yellow">
+
+	<div class="rectangle">
+		<div class="info">
+			<div th:if="${session.isAdministrator}">
+			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
+			<a class="formControls fcyel" href="/home">Home</a>
+			</div>
+		</div>
+		<div class="colholder">		
+
+		<div class="cube">
+		<hr class="three">
 		<div th:if="${yesterdaysQuestionnaire}">
-			<p th:text="'Are you sure you want to delete yesterday\'s questionnaire about: ' + ${yesterdaysQuestionnaire.getProductName()} + '?'"></p>
+			<h2 th:text="'Are you sure you want to delete yesterday\'s questionnaire about: ' + ${yesterdaysQuestionnaire.getProductName()} + '?'"></h2>
 			<form action="deletion" method="post">
-					<button type="submit" name="method" value="Delete">Delete questionnaire</button>
+					<button type="submit" class="formControls fcyel big" name="method" value="Delete">Delete questionnaire</button>
 				</form>
 		</div>
 		<div th:unless="${yesterdaysQuestionnaire}">
-			There is no yesterday's questionnaire available!
+			<h2>There is no yesterday's questionnaire available!</h2>
 		</div>
 	</div>
 	<div th:unless="${session.isAdministrator}">
-		You are not administrator!
+		<h2>You are not administrator!</h2>
 		<br>
 		<a href="/home">Home</a>	
 	</div>
+	
+</div>
+</div>
+</div>
 </body>
 </html>

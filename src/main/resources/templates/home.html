@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Home</title>
-	<link href="css/home.css" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 </head>
 
-<body class="center">
+<body class="center yellow">
 	<div class="rectangle">
 
 		<div class="info">
@@ -17,7 +17,7 @@
 			<a class="formControls fcyel" href="/logout">Logout</a>
 			
 		</div>
-		<hr class="two">
+		<hr class="three">
 		<div class="colholder">		
 
 			<div class="cube">	<h1>Welcome!</h1>
@@ -30,7 +30,7 @@
 				<!--  <img src="../images/test.png"/>		 -->
 				</div>
 			</div>
-			<hr class="two">
+			<hr class="three">
 			<div class="cube">
 				<h1>Read reviews</h1>
 	
@@ -60,7 +60,7 @@
 		</div>
 
 				<br><br>
-				<p th:text="'Check the todays leaderboard '"></p>
+				<p>Check the today's leaderboard</p>
 				<a class="formControls fcyel" href="/leaderboard">Leaderboard</a>
 					<div th:if="${questToday == null}">
 					There is no questionnaire for today! <br>
