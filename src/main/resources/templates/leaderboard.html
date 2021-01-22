@@ -3,23 +3,21 @@
 <head>
 	<title>Leaderboard</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link href="css/home.css" rel="stylesheet" type="text/css">
-	<style>
-		.table {
-			table-layout: auto;
-  			border: 1px solid black;
-		}
-		th, td {
-    		padding: 5px;
-		}
-	</style>
+	<link href="css/questionnaire.css" rel="stylesheet" type="text/css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
 </head>
 
-<body>
-	<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
-	<a href="/home">Home</a>	
-	
-	<h1>Todays leaderboard!</h1>
+<body class="center">
+<div class="rectangle">
+
+		<div class="info">
+			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
+			<a class="formControls" href="/home">Home</a>
+		</div>
+	<div class="colholder">	
+	<div class="cube">
+	<h1>Today's leaderboard</h1>
 	<div th:if="${questToday != null}">
 		Today's product is: <b><span th:text="${questToday.getProductName()}"></span></b>
 		<br>
@@ -30,18 +28,22 @@
 		But come back tomorrow!
 	</div>
 	
-	<table class="table">
-		<tr class="border_bottom">
-			<th>No</th>
-			<th>Username</th>
-			<th>Points</th>
-		</tr>
-		<tr th:each="entry, stat : ${points}">
-			<td th:text="${stat.index + 1}">1</td>
-			<td th:text="${users[stat.index].getUsername()}">Username</td>
-			<td th:text="${points.get(stat.index+1)}">Points</td>
-		</tr>
-	</table>
-
+	<div class="wrapper">
+	<div class="table">
+		<div class="row header">
+			<div class="cell">No</div>
+			<div class="cell">Username</div>
+			<div class="cell">Points</div>
+		</div>
+		<div class="row" th:each="entry, stat : ${points}">
+			<div class="cell" th:text="${stat.index + 1}">1</div>
+			<div class="cell" th:text="${users[stat.index].getUsername()}">Username</div>
+			<div class="cell" th:text="${points.get(stat.index+1)}">Points</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+</div>
 </body>
 </html>

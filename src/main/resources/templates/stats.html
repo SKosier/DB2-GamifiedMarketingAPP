@@ -1,24 +1,33 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Creation</title>
+<title>Stats</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="css/home.css" rel="stylesheet" type="text/css">
+<link href="css/questionnaire.css" rel="stylesheet" type="text/css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
 </head>
 
-<body>
-
-	<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
-	<a href="/logout">Logout</a>
-	
-	<h1>Fill out this questionnaire!</h1>
-	<div th:if="${questToday != null}">
+<body class="center">
+	<div class="rectangle">
+		<div class="info">
+			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
+			<a class="formControls" href="/logout">Logout</a>
+		</div>
+	<hr class="two">
+	<div class="colholder">	
+		<div class="cube">
+		<h1>Fill out this questionnaire</h1>
+		<div th:if="${questToday != null}">
 		Today's product is: <br><br>
 		<b><span th:text="${questToday.getProductName()}"></span></b>
 		<br>
 		<img th:src="'../uploads/' + ${questToday.getPhoto()}"/>
+		</div>
+	<hr class="two">
 		
-		<br><br>This part is optional!<br><br>
+		<div class="cube">
+		<h2>This part is optional<br></h2>
 		
 		<form action="/questionnaire/submit" method="post" enctype="multipart/form-data">
 			 <b>Age:</b> <br>
@@ -52,14 +61,16 @@
 			
 			<br><br>
 			
-			<button type="submit" name="method" value="Save">Save my answers</button>
-			<button type="submit" name="method" value="Cancel">Cancel filling out this questionnaire</button>
+			<button type="submit" class ="formControls" name="method" value="Save">Save answers</button>
+			<button type="submit" class ="formControls" name="method" value="Cancel">Cancel</button>
 		</form>
-		<br>
+		</div>
 		
 		<form action="" method="post">
-    		<button type="submit" name="method" value="Previous">Previous page</button>
+    		<button type="submit" class ="formControls" name="method" value="Previous">Previous page</button>
 		</form>
+		</div>
+		</div>
 	</div>
 	
 	<br><br><br>

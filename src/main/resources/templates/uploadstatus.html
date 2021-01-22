@@ -1,13 +1,25 @@
-<!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"></meta>
-<title>Upload Status</title>
+	<title>Upload Status</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="../css/home.css" rel="stylesheet" type="text/css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
+	
 </head>
-<body>
+
+<body class="center">
+<div class="rectanglemini">
+	<div class="colholder">	
+	<div class="cube">
   <div th:if="${msg}">
     <span th:text="${msg}"></span>
   </div>
-  <p><a href="/home">Home</a></p>
+  <br><br><br><br>
+  <a class="formControls fcyel" href="/home">Home</a>
+</div>
+</div>
+</div>
 </body>
 </html>

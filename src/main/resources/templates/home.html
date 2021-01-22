@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Creation</title>
+	<title>Home</title>
 	<link href="css/home.css" rel="stylesheet" type="text/css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
@@ -14,11 +14,13 @@
 
 		<div class="info">
 			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
-			<a class="somelink" href="/logout">Logout</a>
+			<a class="formControls fcyel" href="/logout">Logout</a>
+			
 		</div>
+		<hr class="two">
 		<div class="colholder">		
 
-			<div class="col q">	<h1>Welcome!</h1>
+			<div class="cube">	<h1>Welcome!</h1>
 				<div th:if="${questToday != null}">
 				Today's product is: <br><br>
 				<b><span th:text="${questToday.getProductName()}"></span></b>
@@ -28,36 +30,45 @@
 				<!--  <img src="../images/test.png"/>		 -->
 				</div>
 			</div>
-			<div class="col r">
-				<h2>Read reviews</h2>
+			<hr class="two">
+			<div class="cube">
+				<h1>Read reviews</h1>
 	
-				<table class="prva">
-				<tr class="border_bottom">
-					<th>No</th>
-					<th>Question</th>
-					<th class="zadnji">Answers</th>
-				</tr>
-				<tr th:each="entry, stat : ${questions}">
-					<td th:text="${stat.index + 1}">1</td>
-					<td th:text="${questions.get(entry.key)}">question</td>
-					<td style="min-width:400px;text-align:center">
-					<table class="tablica">
-						<tr th:each="review : ${reviews.get(entry.key)}">
-							<td th:text="${review}"></td>
-						</tr>
-					</table>
-					</td>
-				</tr>
-				</table>
+		<br>
+		<div class="wrapper">
+		<div class="table">
+		<div class="row header yellow">
+			<div class="cell">No</div>
+			<div class="cell">Question</div>
+			<div class="cell">Answers</div>
+		</div>
+		<div class="row" th:each="entry, stat : ${questions}">
+			<div class="cell" th:text="${stat.index + 1}">1</div>
+			<div class="cell" th:text="${questions.get(entry.key)}">Question</div>
+			<div class="cell">
+						<div th:each="review : ${reviews.get(entry.key)}">
+							<div>
+								<span th:text="${review}"></span>
+							</div>
+							<div>
+								<hr class="one">
+							</div>
+						</div>
+			</div>
+		</div>
+		</div>
+		</div>
+
 				<br><br>
 				<p th:text="'Check the todays leaderboard '"></p>
-				<a href="/leaderboard">Leaderboard</a>
-				<div th:if="${questToday == null}">
+				<a class="formControls fcyel" href="/leaderboard">Leaderboard</a>
+					<div th:if="${questToday == null}">
 					There is no questionnaire for today! <br>
 					But come back tomorrow!
 				</div>
 				<div th:if="${submittedAnswer == null}">
-					<p>Fill out the questionnaire for the product of the day <a href="/questionnaire">here</a></p>
+					<p>Fill out the questionnaire for the product of the day </p>
+					<a class="formControls fcyel" href="/questionnaire">Questionnaire</a>
 				</div>
 				<div th:if="${submittedAnswer != null}">
 					<p>You already filled out questionnaire for today!<br>Come back tomorrow!

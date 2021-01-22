@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Creation</title>
-	<link href="css/home.css" rel="stylesheet" type="text/css">
+	<title>Questionnaire</title>
+	<link href="css/questionnaire.css" rel="stylesheet" type="text/css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -14,11 +14,12 @@
 
 		<div class="info">
 			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
-			<a class="somelink" href="/logout">Logout</a>
+			<a class="formControls" href="/logout">Logout</a>
 		</div>
+		<hr class="two">
 		<div class="colholder">		
 
-			<div class="col q">	<h1>Welcome!</h1>
+			<div class="cube">	<h1>Welcome!</h1>
 				<div th:if="${questToday != null}">
 				Today's product is: <br><br>
 				<b><span th:text="${questToday.getProductName()}"></span></b>
@@ -28,9 +29,9 @@
 				<!--  <img src="../images/test.png"/>		 -->
 				</div>
 			</div>
-			<div class="col r">
-				<br><br>
-				<h2>Questionnaire</h2>
+			<hr class="two">
+			<div class="cube">
+				<h1>Questionnaire</h1>
 		<form action="/questionnaire" method="post" enctype="multipart/form-data">
 			<div th:each="question : ${questToday.getQuestions()}">
 				<li th:text="${question}"></li>
@@ -41,9 +42,8 @@
 				</div>
 				<br>
 			</div>
-			
-			<button type="submit" name="method" value="Save">Next section</button>
-			<button type="reset" name="method" value="Reset">Delete my answers</button>
+			<button type="submit" class ="formControls" name="method" value="Save">Next section</button>
+			<button type="reset" class ="formControls"  name="method" value="Reset">Delete all</button>
 		</form>
 			</div>
 		</div>
