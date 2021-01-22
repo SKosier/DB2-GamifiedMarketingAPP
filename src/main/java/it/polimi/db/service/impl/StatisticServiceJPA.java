@@ -1,5 +1,6 @@
 package it.polimi.db.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,16 @@ public class StatisticServiceJPA implements StatisticService {
 	@Override
 	public Statistic updateStatistic(Statistic stat) {
 		return statRepo.saveAndFlush(stat);
+	}
+	
+	@Override
+	public List<Statistic> listAll(){
+		return statRepo.findAll();
+	}
+	
+	@Override
+	public Statistic removeStatistic(Statistic stat) {
+		statRepo.delete(stat);
+		return stat;
 	}
 }

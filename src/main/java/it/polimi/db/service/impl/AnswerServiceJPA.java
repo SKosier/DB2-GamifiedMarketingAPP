@@ -27,6 +27,11 @@ public class AnswerServiceJPA implements AnswerService {
 	}
 
 	@Override
+	public List<Answer> findByQuestionAndQuestionnaire(Integer question_id, Integer questionnaire_id) {
+		return answerRepo.findByQuestionIdAndQuestionnaireId(question_id, questionnaire_id);
+	}
+	
+	@Override
 	public Optional<Answer> findByUserAndQuestionnaireAndQuestion(Integer user_id, Integer questionnaire_id,
 			Integer question_id) {
 		return answerRepo.findByUserIdAndQuestionnaireIdAndQuestionId(user_id, questionnaire_id, question_id);
@@ -45,5 +50,11 @@ public class AnswerServiceJPA implements AnswerService {
 	@Override
 	public List<Answer> findByUserAndQuestionnaire(Integer userId, Integer questionnaireId) {
 		return answerRepo.findByUserIdAndQuestionnaireId(userId, questionnaireId);
+	}
+	
+	@Override
+	public Answer removeAnswer(Answer answer) {
+		answerRepo.delete(answer);
+		return answer;
 	}
 }

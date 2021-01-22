@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,5 +60,15 @@ public class LeaderboardController {
 		model.addAttribute("points", points);
 		model.addAttribute("users", sortedUsers);
 		return "leaderboard";
+	}
+	
+
+	@Scheduled(cron = "0 0 0 * * *")
+	void resetPoints() {
+		List<User> users = userService.listAll();
+		for(User user : users) {
+			user.setPoints(0);
+			userService.updateUser(user);
+		}
 	}
 }

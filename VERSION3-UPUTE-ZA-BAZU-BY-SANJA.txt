@@ -83,6 +83,8 @@ select * from questionnaire;
 select * from questionnaire_participant;
 select * from questionnaire_questions;
 select * from user;
+select * from statistic;
+select * from answer;
 
 
 
