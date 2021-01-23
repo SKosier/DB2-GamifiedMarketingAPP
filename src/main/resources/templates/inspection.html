@@ -3,7 +3,9 @@
 <head>
 <title>Inspection</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="css/home.css" rel="stylesheet" type="text/css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
+<link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 <style>
 		.tablica {
@@ -24,11 +26,27 @@
     		padding: 15px solid black;
 		}
 	</style>
-<body>
-	<div th:if="${session.isAdministrator}">
-		
-		<p th:text="'Logged in as ' + ${session.currentUserName}"></p>
-		<a href="/logout">Logout</a>
+<body class="center yellow">
+
+	<div class="rectangle">
+		<div class="info">
+			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
+			<div th:if="${session.isAdministrator}">
+				<span>
+				<a class="formControls fcyel" href="/creation">Creation</a>
+				<a class="formControls fcyel" href="/deletion">Deletion</a>
+				<a class="formControls fcyel" href="/home">Home</a>
+				<br>
+				</span>
+				<br>
+			</div>
+			<a class="formControls fcyel" href="/logout">Logout</a>
+			
+		</div>
+	
+	<div class="colholder">
+	<div class="cube">
+
 		
 		<h1>Questionnaire inspection page</h1>
 	
@@ -100,17 +118,19 @@
 					</div>
 				 <br><br>
 				
-				<button type="submit" name="method" value="Choose">Choose</button>
+				<button type="submit" class="formControls fcyel" name="method" value="Choose">Choose</button>
 			</form>
 			
 		</div>
 		<br><br>
-		<a href="/home">Home</a>
 	</div>
 	<div th:unless="${session.isAdministrator}">
 		You are not administrator!
 		<br>
-		<a href="/home">Home</a>	
+		<a class="formControls fcyel" href="/logout">Logout</a>	
 	</div>
+</div>
+</div>
+</div>
 </body>
 </html>

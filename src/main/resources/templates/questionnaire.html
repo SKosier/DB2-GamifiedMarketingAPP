@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Questionnaire</title>
-	<link href="css/questionnaire.css" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 </head>
 
-<body class="center">
+<body class="center red">
 	<div class="rectangle">
 
 		<div class="info">
@@ -37,7 +37,7 @@
 				<li th:text="${question}"></li>
 				<br>
 				<div>
-			 	<textarea th:name="'answer-' + ${question.getId()}" placeholder="Your answer here..." rows="3" cols="80" th:text="${ansform.getAnswer(question.getId())}" required>
+			 	<textarea class="red" th:name="'answer-' + ${question.getId()}" placeholder="Your answer here..." rows="3" cols="80" th:text="${ansform.getAnswer(question.getId())}" required>
 			   	</textarea>
 				</div>
 				<br>
