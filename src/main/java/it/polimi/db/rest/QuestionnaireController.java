@@ -164,31 +164,29 @@ public class QuestionnaireController {
 			String sex = req.getParameter("sex");
 			String expLevel = req.getParameter("exper");
 			
-			if(age != null || sex != null || expLevel != null) {
-				Optional<Statistic> stats = statisticService.findByUserAndQuestionnaire(userId, q.getId());
-				Statistic stat;
-				
-				if(stats.isPresent()) {
-					stat = stats.get();
-				
-				} else {
-					stat = new Statistic();
-				}
-
-				stat.setCanceled(false);
-				stat.setAge(age);
-				stat.setExpertiseLevel(expLevel);
-				stat.setSex(sex);
-				stat.setQuestionnaireId(q.getId());
-				stat.setUser_id(userId);
-				statisticService.updateStatistic(stat);
-				
-
-				//Toma doda
-				if(age!=null)		newPoints+=2;
-				if(sex!=null)		newPoints+=2;
-				if(expLevel!=null)	newPoints+=2;
+			Optional<Statistic> stats = statisticService.findByUserAndQuestionnaire(userId, q.getId());
+			Statistic stat;
+			
+			if(stats.isPresent()) {
+				stat = stats.get();
+			
+			} else {
+				stat = new Statistic();
 			}
+
+			stat.setCanceled(false);
+			stat.setAge(age);
+			stat.setExpertiseLevel(expLevel);
+			stat.setSex(sex);
+			stat.setQuestionnaireId(q.getId());
+			stat.setUser_id(userId);
+			statisticService.updateStatistic(stat);
+
+			//Toma doda
+			if(age!=null)		newPoints+=2;
+			if(sex!=null)		newPoints+=2;
+			if(expLevel!=null)	newPoints+=2;
+		
 			//Toma doda
 			user.setPoints(newPoints);
 			q.addParticipant(user);
