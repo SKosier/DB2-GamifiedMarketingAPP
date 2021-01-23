@@ -40,8 +40,7 @@ public class HomePageController {
 	@ModelAttribute("questToday")
 	public Questionnaire getToday() {
 		Optional<Questionnaire> todays = questionnaireService.findByDate(new Date(System.currentTimeMillis()));
-		if (todays.isPresent())
-			return todays.get();
+		if (todays.isPresent()) return todays.get();
 		return null;
 	}
 
@@ -49,11 +48,10 @@ public class HomePageController {
 	public List<Answer> getAnswer(HttpServletRequest req) {
 		Integer user = (Integer) req.getSession().getAttribute("currentUserId");
 		Questionnaire q = getToday();
-		if (q == null || user == null)
-			return null;
+		if (q == null || user == null) return null;
+		
 		List<Answer> submitted = answerService.findByUserAndQuestionnaire(user, q.getId());
-		if (submitted != null && submitted.size() != 0)
-			return submitted;
+		if (submitted != null && submitted.size() != 0) return submitted;
 		return null;
 	}
 
@@ -67,6 +65,7 @@ public class HomePageController {
 		Map<Integer, List<String>> reviews = new HashMap<>();
 		Map<Integer, String> questions = new HashMap<>();
 		Questionnaire q = getToday();
+		//System.out.println(q.getProductName());
 		
 		if (q != null) {
 			for(Question qstn : q.getQuestions()) {

@@ -52,8 +52,7 @@ public class QuestionnaireController {
 	@ModelAttribute("questToday")
 	public Questionnaire getToday() {
 		Optional<Questionnaire> todays = questionnaireService.findByDate(new Date(System.currentTimeMillis()));
-		if (todays.isPresent())
-			return todays.get();
+		if (todays.isPresent()) return todays.get();
 		return null;
 	}
 
@@ -174,7 +173,7 @@ public class QuestionnaireController {
 			//Toma doda
 			user.setPoints(newPoints);
 			q.addParticipant(user);
-			userService.updateUser(user);
+			questionnaireService.updateQuestionnaire(q);
 		}
 		
 		model.addAttribute("msg", "Thank you for filling out questionnaire of the day!");

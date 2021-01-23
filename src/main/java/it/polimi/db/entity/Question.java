@@ -1,15 +1,12 @@
 package it.polimi.db.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,8 +20,9 @@ public class Question {
 	@Column(nullable = false)
 	private String question;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE }, mappedBy = "questions")
-	private Set<Questionnaire> questionnaires = new HashSet<>(); // u kojima ih mozemo naci
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "questionnaire")
+	private Questionnaire questionnaire; // u kojem se nalazi
 
 	// **********************************************
 
@@ -40,18 +38,14 @@ public class Question {
 		this.question = question;
 	}
 
-	public Set<Questionnaire> getQuestionnaires() {
-		return questionnaires;
+	public Questionnaire getQuestionnaire() {
+		return questionnaire;
 	}
 
-	public void addQuestionnaire(Questionnaire questionnaires) {
-		this.questionnaires.add(questionnaires);
+	public void setQuestionnaire(Questionnaire questionnaire) {
+		this.questionnaire = questionnaire;
 	}
 
-	public void setQuestionnaires(Set<Questionnaire> questionnaires) {
-		this.questionnaires = questionnaires;
-	}
-	
 	public String toString() {
 		return question;
 	}

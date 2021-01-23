@@ -81,7 +81,6 @@ Za sada trenutno samo postoje /index.html stranica, ali radim na log-inu
 select * from question;
 select * from questionnaire;
 select * from questionnaire_participant;
-select * from questionnaire_questions;
 select * from user;
 select * from statistic;
 select * from answer;

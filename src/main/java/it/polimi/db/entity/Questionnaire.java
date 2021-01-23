@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,8 +35,7 @@ public class Questionnaire {
 	@JoinTable(name = "questionnaire_participant", joinColumns = @JoinColumn(name = "questionnaire_id"), inverseJoinColumns = @JoinColumn(name = "participant_id", referencedColumnName = "user_id"))
 	private Set<User> participants = new HashSet<>();
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "questionnaire_questions", joinColumns = @JoinColumn(name = "questionnaire_id"), inverseJoinColumns = @JoinColumn(name = "q_id", referencedColumnName = "question_id"))
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, mappedBy = "questionnaire")
 	private Set<Question> questions = new HashSet<>();
 
 	@Column(name="name")
@@ -51,6 +51,7 @@ public class Questionnaire {
 
 	public void addParticipant(User p) {
 		this.participants.add(p);
+		p.addFilledQuestionnaire(this);
 	}
 
 	public void setParticipants(Set<User> participants) {
@@ -63,6 +64,7 @@ public class Questionnaire {
 
 	public void addQuestion(Question question) {
 		this.questions.add(question);
+		question.setQuestionnaire(this);
 	}
 
 	public void setQuestions(Set<Question> questions) {
@@ -97,4 +99,7 @@ public class Questionnaire {
 		this.photo = photo;
 	}
 
+	public String toString() {
+		return this.getProductName();
+	}
 }

@@ -45,15 +45,11 @@ public class User {
 	private Integer points = 0;
 
 	@Column
-	private UserType userPrivilege;
+	private UserType userPrivilege = UserType.PARTICIPANT;
 
 	// ***************************************************
 	public Integer getId() {
 		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getUsername() {

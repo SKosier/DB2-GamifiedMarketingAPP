@@ -1,5 +1,8 @@
 package it.polimi.db;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +20,7 @@ import it.polimi.db.entity.Statistic;
 import it.polimi.db.entity.User;
 import it.polimi.db.entity.UserType;
 import it.polimi.db.service.AnswerService;
+import it.polimi.db.service.CurseWordService;
 import it.polimi.db.service.QuestionService;
 import it.polimi.db.service.QuestionnaireService;
 import it.polimi.db.service.StatisticService;
@@ -39,6 +43,9 @@ public class Initializer {
 
 	@Autowired
 	StatisticService statService;
+	
+	@Autowired
+	CurseWordService cwService;
 	
 	@Value("${db2.test.user.names}")
 	private String testNames;
@@ -73,7 +80,7 @@ public class Initializer {
 
 			if (i % 2 == 0) {
 				q1.addQuestion(qu);		
-				q3.addQuestion(qu);
+			
 			} else {
 				q2.addQuestion(qu);
 			}
@@ -88,7 +95,7 @@ public class Initializer {
 		q2.setProductName("Ichnusa");
 		q2.setPhoto("Birra Ichnusa.jpg");
 		
-		q3.setDate(new Date(System.currentTimeMillis() + 1000*60*60*24));
+		q3.setDate(new Date(System.currentTimeMillis() + 3*1000*60*60*24));
 		q3.setProductName("Birra Peroni");
 		q3.setPhoto("peroni.png");
 		
@@ -98,6 +105,18 @@ public class Initializer {
 		questionnaireService.updateQuestionnaire(q1);
 		questionnaireService.updateQuestionnaire(q2);
 		questionnaireService.updateQuestionnaire(q3);
+		
+		List<String> bannedWords = null;
+		try {
+			bannedWords = Files.readAllLines(Paths.get("src/main/resources/cursewords.txt"));
+			for(String banned : bannedWords) {
+				if(banned.isBlank()) continue;
+				cwService.createCurseWord(banned);
+			}
+			
+		} catch (IOException e) {
+			System.err.println("Couldn't locate file!");
+		}
 	}
 
 	private void createAnswers(Questionnaire q2, List<User> users) {

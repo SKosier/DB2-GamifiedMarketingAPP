@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -99,14 +97,12 @@ public class CreationController {
 
 	private Questionnaire fillFromQF(QuestionnaireForm qf) {
 		Questionnaire newQuest = new Questionnaire();
-		Set<Question> questions = new HashSet<>();
-		for (String s : qf.getQuestions()) {
-			Question q = new Question();
-			q.setQuestion(s);
-
-			questions.add(q);
+		for (String text : qf.getQuestions()) {
+			Question question = new Question();
+			question.setQuestion(text);
+			newQuest.addQuestion(question);
 		}
-		newQuest.setQuestions(questions);
+		
 		newQuest.setDate(qf.getDate());
 		newQuest.setProductName(qf.getName());
 		return newQuest;
