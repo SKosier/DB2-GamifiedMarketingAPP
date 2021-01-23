@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,18 @@ public class CreationController {
 	}
 
 	@GetMapping("")
-	public String create() {
+	public String create(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		if (session.isNew() || session.getAttribute("currentUser") == null) {
+			return "redirect:/login";
+		}
+		
+		if((boolean) session.getAttribute("isAdministrator") == false) {
+			model.addAttribute("error", "You are not administrator!");
+			req.getSession().setAttribute("error", "You are not admin");
+			return "error";
+		}
+		
 		return "creation";
 	}
 
@@ -48,6 +60,13 @@ public class CreationController {
 			final Questionnaire postQues,
 			BindingResult bindingResult, Model model, HttpServletRequest req) throws IOException {
 
+		//ACT-checks hehe
+		if((boolean) req.getSession().getAttribute("isAdministrator") == false) {
+			model.addAttribute("error", "You are not administrator!");
+			req.getSession().setAttribute("error", "You are not admin");
+			return "error";
+		}
+		
 		if (method.equals("Cancel")) {
 			return "redirect:/home";
 		}

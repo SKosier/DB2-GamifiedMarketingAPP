@@ -27,12 +27,13 @@
 			
 		</div>
 	
+	<hr class="three">
 	<div class="colholder">
 	<div class="cube">
 
 		<h1>Questionnaire inspection page</h1>
 		<div th:if="${questionnaireChoice != null}">
-			Today's product is: 
+			Product name: 
 			<b><span th:text="${questionnaireChoice.getProductName()}"></span></b>
 			<br>
 			<br>
@@ -128,7 +129,6 @@
 		<br>
 		<a class="formControls fcyel" href="/logout">Logout</a>	
 	</div>
-</div>
 </div>
 </div>
 </body>

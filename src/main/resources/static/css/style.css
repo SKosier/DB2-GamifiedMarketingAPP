@@ -132,7 +132,8 @@ input[type="file"] {
 	
 }
 .uname {
-	font-size: 36px;
+	font-size: 20px;
+	font-weight: bold;
 	color: black;
 }
 

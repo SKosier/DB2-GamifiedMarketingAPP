@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,6 +59,11 @@ public class QuestionnaireController {
 
 	@GetMapping("")
 	public String create(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		if (session.isNew() || session.getAttribute("currentUser") == null) {
+			return "redirect:/login";
+		}
+		
 		Questionnaire q = getToday();
 		Integer user = (Integer) req.getSession().getAttribute("currentUserId");
 		if (q == null || user == null)
@@ -74,9 +80,10 @@ public class QuestionnaireController {
 	@RequestMapping("")
 	public String prev(@RequestParam("method") String method, final Answer postAnswer,
 			BindingResult bindingResult, Model model, HttpServletRequest req) throws IOException {
-//		if (session.isNew() || session.getAttribute("currentUser") == null) {
-//			return "redirect:/login";
-//		}
+		HttpSession session = req.getSession();
+		if (session.isNew() || session.getAttribute("currentUser") == null) {
+			return "redirect:/login";
+		}
 
 		if (method.equals("Previous")) {
 			model.addAttribute("ansform", temp);

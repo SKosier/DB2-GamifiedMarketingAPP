@@ -37,13 +37,16 @@ public class LeaderboardController {
 	@ModelAttribute("questToday")
 	public Questionnaire getToday() {
 		Optional<Questionnaire> todays = questionnaireService.findByDate(new Date(System.currentTimeMillis()));
-		if (todays.isPresent())
-			return todays.get();
+		if (todays.isPresent()) return todays.get();
 		return null;
 	}
 	
 	@GetMapping("")
 	public String showPage(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		if (session.isNew() || session.getAttribute("currentUser") == null) {
+			return "redirect:/login";
+		}
 		
 		Map<Integer, Integer> points = new HashMap<>();
 		List<User> users = userService.listAll();

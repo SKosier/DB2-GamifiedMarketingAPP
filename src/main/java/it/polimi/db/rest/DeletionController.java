@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +39,17 @@ public class DeletionController {
 	
 	@GetMapping("")
 	public String showPage(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		if (session.isNew() || session.getAttribute("currentUser") == null) {
+			return "redirect:/login";
+		}
+		
+		if((boolean) session.getAttribute("isAdministrator") == false) {
+			model.addAttribute("error", "You are not administrator!");
+			req.getSession().setAttribute("error", "You are not admin");
+			return "error";
+		}
+		
 		return "deletion";
 	}
 	
@@ -68,7 +80,7 @@ public class DeletionController {
 					if(s.getQuestionnaireId()==questionnaire.getId()) statService.removeStatistic(s);
 				}
 				 
-				model.addAttribute("msg", "Thank you for deleting the questionnaire!");
+				model.addAttribute("msg", "Successfully deleted questionnaire!");
 			} else {
 				model.addAttribute("msg", "Deletion of the questionnaire unsuccessful!");
 			}

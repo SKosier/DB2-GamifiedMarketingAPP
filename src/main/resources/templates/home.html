@@ -11,28 +11,12 @@
 
 <body class="center yellow">
 	<div class="rectangle">
-
-		<div class="info">
-			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
-			<div th:if="${session.isAdministrator}">
-				<p>Admin features</p>
-				<span>
-				<a class="formControls fcyel" href="/creation">Creation</a>
-				<a class="formControls fcyel" href="/deletion">Deletion</a>
-				<a class="formControls fcyel" href="/inspection">Inspection</a>
-				<br>
-				</span>
-				<br>
-			</div>
-			<a class="formControls fcyel" href="/logout">Logout</a>
-			
-		</div>
-		<hr class="three">
+		
 		<div class="colholder">		
-
-			<div class="cube">	<h1>Welcome!</h1>
+			<div class="cube">
+			<h1 th:text="'Welcome ' + ${session.currentUserName} + '!'"></h1>
 				<div th:if="${questToday != null}">
-				Today's product is: <br><br>
+				<h3>Today's product is: </h3>
 				<b><span th:text="${questToday.getProductName()}"></span></b>
 				<br>
 				<br>
@@ -75,7 +59,7 @@
 		</div>
 		</div>
 		</div>
-								<p>Check the today's leaderboard!</p>
+				<p>Check the today's leaderboard!</p>
 				<a class="formControls fcyel" href="/leaderboard">Leaderboard</a>
 				<div th:if="${submittedAnswer == null}">
 					<p>Fill out the questionnaire for the product of the day!</p>
@@ -88,7 +72,19 @@
 			</div>
 		</div>
 
-
+		<div class="info">
+			<div th:if="${session.isAdministrator}">
+				<p><b>Admin features</b></p>
+				<span>
+				<a class="formControls fcyel" href="/creation">Creation</a>
+				<a class="formControls fcyel" href="/deletion">Deletion</a>
+				<a class="formControls fcyel" href="/inspection">Inspection</a>
+				<br>
+				</span>
+				<br>
+			</div>
+			<a class="formControls fcyel" href="/logout">Logout</a>
+		</div>
 </div>
 </body>
 </html>

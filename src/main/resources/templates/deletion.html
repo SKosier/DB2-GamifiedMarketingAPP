@@ -31,10 +31,10 @@
 			<a class="formControls fcyel" href="/logout">Logout</a>
 			
 		</div>
-		<div class="colholder">		
-
-		<div class="cube">
+		
 		<hr class="three">
+		<div class="colholder">		
+		<div class="cube">
 		<div th:if="${yesterdaysQuestionnaire}">
 			<h2 th:text="'Are you sure you want to delete yesterday\'s questionnaire about: ' + ${yesterdaysQuestionnaire.getProductName()} + '?'"></h2>
 			<form action="deletion" method="post">

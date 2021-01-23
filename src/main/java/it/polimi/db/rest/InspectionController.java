@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,6 @@ import it.polimi.db.entity.Answer;
 import it.polimi.db.entity.Question;
 import it.polimi.db.entity.Questionnaire;
 import it.polimi.db.service.AnswerService;
-import it.polimi.db.service.QuestionService;
 import it.polimi.db.service.QuestionnaireService;
 import it.polimi.db.service.StatisticService;
 import it.polimi.db.service.UserService;
@@ -45,11 +45,19 @@ public class InspectionController {
 	@Autowired
 	private AnswerService answerService;
 	
-	@Autowired
-	private QuestionService questionService;
-	
 	@GetMapping("")
 	public String showPage(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		if (session.isNew() || session.getAttribute("currentUser") == null) {
+			return "redirect:/login";
+		}
+		
+		if((boolean) session.getAttribute("isAdministrator") == false) {
+			model.addAttribute("error", "You are not administrator!");
+			req.getSession().setAttribute("error", "You are not admin");
+			return "error";
+		}
+		
 		return "inspection";
 	}
 	

@@ -21,7 +21,6 @@ import it.polimi.db.entity.Answer;
 import it.polimi.db.entity.Question;
 import it.polimi.db.entity.Questionnaire;
 import it.polimi.db.service.AnswerService;
-import it.polimi.db.service.QuestionService;
 import it.polimi.db.service.QuestionnaireService;
 
 @Controller
@@ -33,9 +32,6 @@ public class HomePageController {
 
 	@Autowired
 	private QuestionnaireService questionnaireService;
-
-	@Autowired
-	private QuestionService questionService;
 
 	@ModelAttribute("questToday")
 	public Questionnaire getToday() {
@@ -58,14 +54,13 @@ public class HomePageController {
 	@GetMapping("")
 	public String showPage(Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession();
-//		if (session.isNew() || session.getAttribute("currentUser") == null) {
-//			return "redirect:/login";
-//		}
+		if (session.isNew() || session.getAttribute("currentUser") == null) {
+			return "redirect:/login";
+		}
 
 		Map<Integer, List<String>> reviews = new HashMap<>();
 		Map<Integer, String> questions = new HashMap<>();
 		Questionnaire q = getToday();
-		//System.out.println(q.getProductName());
 		
 		if (q != null) {
 			for(Question qstn : q.getQuestions()) {
