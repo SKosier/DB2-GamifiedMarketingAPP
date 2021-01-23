@@ -175,6 +175,7 @@ h1 {
 	vertical-align: middle;
 	display: inline-block;
 	background: rgba(221,0,0,1);
+	min-width: 100px;
 }
 .reg-button {
 	position: relative;
@@ -212,7 +213,8 @@ h1 {
 
 .imga{
 	padding-top: 25px;
-	max-width: 800px;
+	max-width: 600px;
+	max-height: 400px;
 	
 }
 
