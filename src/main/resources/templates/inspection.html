@@ -6,6 +6,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet"> 
 <link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
 </head>
 <style>
 		.tablica {
@@ -32,6 +33,7 @@
 		<div class="info">
 			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
 			<div th:if="${session.isAdministrator}">
+				<p>Admin features</p>
 				<span>
 				<a class="formControls fcyel" href="/creation">Creation</a>
 				<a class="formControls fcyel" href="/deletion">Deletion</a>
@@ -47,67 +49,84 @@
 	<div class="colholder">
 	<div class="cube">
 
-		
 		<h1>Questionnaire inspection page</h1>
-	
 		<div th:if="${questionnaireChoice != null}">
 			Today's product is: 
 			<b><span th:text="${questionnaireChoice.getProductName()}"></span></b>
 			<br>
 			<br>
+			<hr class="three">
+			
+			<div th:if="${!participantsSubmitted.isEmpty()}">
 			Participants that submitted the questionnaire:
-			<table class="tablica">
-				<tr class="border_bottom">
-					<th>User</th>
-				</tr>
-				<tr th:each="user : ${participantsSubmitted}">
-					<td th:text="${user.getUsername()}">name</td>
-				</tr>
-				<br>
-				<br>
-			</table>
-			<br>
+				<div class="wrapper">
+				<div class="table">
+				<div class="row header yellow">
+					<div class="cell">User</div>
+					</div>
+				<div class="row" th:each="user : ${participantsSubmitted}">
+					<div class="cell" th:text="${user.getUsername()}">name</div>
+				</div>
+				</div>
+				</div>
+			</div>
+			
+			<div th:if="${!participantsCancelled.isEmpty()}">
 			Participants that cancelled the questionnaire: 
-			<br>
-			<table class="tablica">
-				<tr class="border_bottom">
-					<th>User</th>
-				</tr>
-				<tr th:each="user : ${participantsCancelled}">
-					<td th:text="${user.getUsername()}">name</td>
-				</tr>
-			</table>
-			<br>
-			<table class="tablica">
-				<tr class="border_bottom">
-					<th>Questions</th>
-				</tr>
-				<tr th:each="question : ${questionnaireChoice.getQuestions()}">
-					<td th:text="${question.getQuestion()}">name</td>
-				</tr>
-			</table>
+				<div class="wrapper">
+				<div class="table">
+				<div class="row header yellow">
+					<div class="cell">User</div>
+					</div>
+				<div class="row" th:each="user : ${participantsCancelled}">
+					<div class="cell" th:text="${user.getUsername()}">name</div>
+				</div>
+			</div>
+			</div>
+			</div>
+			
 			
 			<br>
-					
-			<table class="tablica">
-				<tr class="border_bottom">
-					<th>Question</th>
-					<th>Answers</th>
-				</tr>
-				<tr th:each="entry, stat : ${qAndAs}">
-					<td th:text="${entry.key.getQuestion()}">user</td>
-					<td style="min-width:300px">
-						<table class="subtablica">
-							<tr th:each="answer : ${entry.value}">
-								<td th:text="${answer}"></td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-					
+			
+		<!-- 		<div class="wrapper">
+				<div class="table">
+				<div class="row header yellow">
+					<div class="cell">Questions</div>
+					</div>
+				<div class="row" th:each="question : ${questionnaireChoice.getQuestions()}">
+					<div class="cell" th:text="${question.getQuestion()}">name</div>
+				</div>
+				</div>
+				</div>
+
+			
+			<br>
+			-->
+		<div class="wrapper">
+		<div class="table">
+		<div class="row header yellow">
+			<div class="cell">Question</div>
+			<div class="cell">Answers</div>
+		</div>
+		<div class="row" th:each="entry, stat : ${qAndAs}">
+			<div class="cell" th:text="${entry.key.getQuestion()}">user</div>
+			<div class="cell">
+						<div th:each="answer : ${entry.value}">
+							<div>
+								<span th:text="${answer}"></span>
+							</div>
+							<div>
+								<hr class="one">
+							</div>
+						</div>
+			</div>
+		</div>
+		</div>
+		</div>
 			
 		</div>
+		
+		
 		<br>
 		<div th:if="${questionnaireChoice == null}">
 			<form action="/inspection/submit" method="post" enctype="multipart/form-data">
