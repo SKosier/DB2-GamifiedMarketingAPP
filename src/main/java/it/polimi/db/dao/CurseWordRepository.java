@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import it.polimi.db.entity.CurseWord;
 
 public interface CurseWordRepository extends JpaRepository<CurseWord, Integer> {
-	List<CurseWord> findAll();
+	@Query(value = "SELECT curse_words.word FROM curse_words", nativeQuery = true)
+	List<String> findAllWords();
 	
-	Optional<String> findByWord(String curseWord);
+	Optional<CurseWord> findByWord(String curseWord);
 }

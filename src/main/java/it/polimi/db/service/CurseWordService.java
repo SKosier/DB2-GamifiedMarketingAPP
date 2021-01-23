@@ -6,9 +6,9 @@ import java.util.Optional;
 import it.polimi.db.entity.CurseWord;
 
 public interface CurseWordService {
-	List<CurseWord> findAll();
+	List<String> findAllWords();
 	
-	Optional<String> findByWord(String curseWord);
+	Optional<CurseWord> findByWord(String curseWord);
 	
 	CurseWord createCurseWord(String curseWord);
 }

@@ -21,6 +21,7 @@ import it.polimi.db.entity.Answer;
 import it.polimi.db.entity.Questionnaire;
 import it.polimi.db.entity.Statistic;
 import it.polimi.db.entity.User;
+import it.polimi.db.entity.UserType;
 import it.polimi.db.form.AnswersForm;
 import it.polimi.db.service.AnswerService;
 import it.polimi.db.service.QuestionnaireService;
@@ -107,9 +108,11 @@ public class QuestionnaireController {
 	@RequestMapping("/submit")
 	public String saveAnswer(@RequestParam("method") String method, final Answer postAnswer,
 			BindingResult bindingResult, Model model, HttpServletRequest req) throws IOException {
-//		if (session.isNew() || session.getAttribute("currentUser") == null) {
-//			return "redirect:/login";
-//		}
+		
+		HttpSession session = req.getSession();
+		if (session .isNew() || session.getAttribute("currentUser") == null) {
+			return "redirect:/login";
+		}
 
 		Integer userId = (Integer) req.getSession().getAttribute("currentUserId");
 		Questionnaire q = getToday();
@@ -127,9 +130,18 @@ public class QuestionnaireController {
 		}
 
 		temp.validate();
-		//Toma doda
+		
 		Optional<User> currentUser = userService.findById(userId);
 		if(!temp.isValid() && currentUser.isPresent()) {
+			if(temp.containsError("ban")) {
+				User user = currentUser.get();
+				user.setUserPrivilege(UserType.BANNED);
+				userService.updateUser(user);
+				
+				session.invalidate();
+				model.addAttribute("error", temp.getError("ban").get(0));
+				return "error";
+			}
 			
 		} else {
 			//Toma doda

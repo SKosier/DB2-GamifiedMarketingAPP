@@ -19,6 +19,8 @@ public class CurseWord {
 
 	// **********************************************
 	
+	public CurseWord() {}
+	
 	public CurseWord(String word) {
 		this.word = word;
 	}

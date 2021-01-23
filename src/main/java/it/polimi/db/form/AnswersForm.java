@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import it.polimi.db.entity.CWSingleton;
 import it.polimi.db.entity.Question;
 import it.polimi.db.entity.Questionnaire;
 
@@ -42,10 +43,23 @@ public class AnswersForm {
 	public void validate() {
 		errors.clear();
 		
+		boolean shouldBan = false;
 		for(Integer key : answers.keySet()) {
-			if(answers.get(key).isEmpty()) {
+			String answer = answers.get(key);
+			if(answer.isEmpty()) {
 				setError("answer", "Answer should not be null");
 			}
+			
+			for(String word : answer.split(" ")) {
+				System.out.println(word);
+				if(CWSingleton.bannedWords.contains(word)) {
+					setError("ban", "You wrote innapropriate answer! You are banned!");
+					shouldBan = true;
+					break;
+				}
+			}
+			
+			if(shouldBan) break;
 		}
 	}
 	

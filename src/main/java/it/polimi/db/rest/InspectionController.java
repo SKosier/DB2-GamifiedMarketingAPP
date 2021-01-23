@@ -54,7 +54,6 @@ public class InspectionController {
 		
 		if((boolean) session.getAttribute("isAdministrator") == false) {
 			model.addAttribute("error", "You are not administrator!");
-			req.getSession().setAttribute("error", "You are not admin");
 			return "error";
 		}
 		

@@ -17,12 +17,12 @@ public class CurseWordServiceJPA implements CurseWordService {
 	private CurseWordRepository cwRepo;
 	
 	@Override
-	public List<CurseWord> findAll() {
-		return cwRepo.findAll();
+	public List<String> findAllWords() {
+		return cwRepo.findAllWords();
 	}
 
 	@Override
-	public Optional<String> findByWord(String curseWord) {
+	public Optional<CurseWord> findByWord(String curseWord) {
 		return cwRepo.findByWord(curseWord);
 	}
 

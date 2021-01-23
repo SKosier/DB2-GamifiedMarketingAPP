@@ -14,6 +14,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import it.polimi.db.entity.Answer;
+import it.polimi.db.entity.CWSingleton;
 import it.polimi.db.entity.Question;
 import it.polimi.db.entity.Questionnaire;
 import it.polimi.db.entity.Statistic;
@@ -118,6 +119,9 @@ public class Initializer {
 		} catch (IOException e) {
 			System.err.println("Couldn't locate file!");
 		}
+		
+		List<String> bw = cwService.findAllWords();
+		CWSingleton.setBannedWords(bw);
 	}
 
 	private void createAnswers(Questionnaire q2, List<User> users) {
