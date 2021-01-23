@@ -54,13 +54,20 @@
 
 <body class="center yellow">
 	<div class="rectangle">
-	
 
-		<div class="info">
-			<div th:if="${session.isAdministrator}">
+				<div class="info">
 			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
-			<a class="formControls fcyel" href="/logout">Logout</a>
+			<div th:if="${session.isAdministrator}">
+				<span>
+				<a class="formControls fcyel" href="home">Home</a>
+				<a class="formControls fcyel" href="/deletion">Deletion</a>
+				<a class="formControls fcyel" href="/inspection">Inspection</a>
+				<br>
+				</span>
+				<br>
 			</div>
+			<a class="formControls fcyel" href="/logout">Logout</a>
+			
 		</div>
 		<hr class="three">
 		<div class="colholder">		

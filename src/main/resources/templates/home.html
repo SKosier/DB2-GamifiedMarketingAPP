@@ -14,6 +14,15 @@
 
 		<div class="info">
 			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
+			<div th:if="${session.isAdministrator}">
+				<span>
+				<a class="formControls fcyel" href="/creation">Creation</a>
+				<a class="formControls fcyel" href="/deletion">Deletion</a>
+				<a class="formControls fcyel" href="/inspection">Inspection</a>
+				<br>
+				</span>
+				<br>
+			</div>
 			<a class="formControls fcyel" href="/logout">Logout</a>
 			
 		</div>
@@ -26,7 +35,7 @@
 				<b><span th:text="${questToday.getProductName()}"></span></b>
 				<br>
 				<br>
-				<img th:src="'uploads/' + ${questToday.getPhoto()}"/>
+				<img class="imga" th:src="'uploads/' + ${questToday.getPhoto()}"/>
 				<!--  <img src="../images/test.png"/>		 -->
 				</div>
 			</div>
@@ -60,18 +69,20 @@
 		</div>
 
 				<br><br>
-				<p>Check the today's leaderboard</p>
-				<a class="formControls fcyel" href="/leaderboard">Leaderboard</a>
 					<div th:if="${questToday == null}">
 					There is no questionnaire for today! <br>
 					But come back tomorrow!
 				</div>
+				<div th:unless="${questToday == null}">
+								<p>Check the today's leaderboard</p>
+				<a class="formControls fcyel" href="/leaderboard">Leaderboard</a>
 				<div th:if="${submittedAnswer == null}">
 					<p>Fill out the questionnaire for the product of the day </p>
 					<a class="formControls fcyel" href="/questionnaire">Questionnaire</a>
 				</div>
 				<div th:if="${submittedAnswer != null}">
 					<p>You already filled out questionnaire for today!<br>Come back tomorrow!
+				</div>
 				</div>
 			</div>
 		</div>

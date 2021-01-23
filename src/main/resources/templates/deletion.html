@@ -17,10 +17,18 @@
 
 	<div class="rectangle">
 		<div class="info">
-			<div th:if="${session.isAdministrator}">
 			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
-			<a class="formControls fcyel" href="/home">Home</a>
+			<div th:if="${session.isAdministrator}">
+				<span>
+				<a class="formControls fcyel" href="/creation">Creation</a>
+				<a class="formControls fcyel" href="/home">Home</a>
+				<a class="formControls fcyel" href="/inspection">Inspection</a>
+				<br>
+				</span>
+				<br>
 			</div>
+			<a class="formControls fcyel" href="/logout">Logout</a>
+			
 		</div>
 		<div class="colholder">		
 
@@ -38,8 +46,7 @@
 	</div>
 	<div th:unless="${session.isAdministrator}">
 		<h2>You are not administrator!</h2>
-		<br>
-		<a href="/home">Home</a>	
+
 	</div>
 	
 </div>
