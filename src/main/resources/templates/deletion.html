@@ -19,7 +19,6 @@
 		<div class="info">
 			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
 			<div th:if="${session.isAdministrator}">
-			<p>Admin features</p>
 				<span>
 				<a class="formControls fcyel" href="/creation">Creation</a>
 				<a class="formControls fcyel" href="/home">Home</a>
