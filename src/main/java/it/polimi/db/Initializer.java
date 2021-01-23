@@ -20,7 +20,7 @@ import it.polimi.db.entity.Statistic;
 import it.polimi.db.entity.User;
 import it.polimi.db.entity.UserType;
 import it.polimi.db.service.AnswerService;
-import it.polimi.db.service.CurseWordService;
+//import it.polimi.db.service.CurseWordService;
 import it.polimi.db.service.QuestionService;
 import it.polimi.db.service.QuestionnaireService;
 import it.polimi.db.service.StatisticService;
@@ -45,7 +45,7 @@ public class Initializer {
 	StatisticService statService;
 	
 	@Autowired
-	CurseWordService cwService;
+	//CurseWordService cwService;
 	
 	@Value("${db2.test.user.names}")
 	private String testNames;
@@ -112,7 +112,7 @@ public class Initializer {
 			bannedWords = Files.readAllLines(Paths.get("src/main/resources/cursewords.txt"));
 			for(String banned : bannedWords) {
 				if(banned.isBlank()) continue;
-				cwService.createCurseWord(banned);
+				//cwService.createCurseWord(banned);
 			}
 			
 		} catch (IOException e) {
