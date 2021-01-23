@@ -239,7 +239,8 @@ h1 {
 	float: left;
 	text-align: left;
 	padding-left: 10%;
-	padding-right: 20%;
+	
+	margin-right: 40%;
 }
 
 .cen{

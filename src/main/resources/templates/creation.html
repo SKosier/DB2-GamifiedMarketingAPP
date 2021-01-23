@@ -115,7 +115,10 @@
 				
 				<div id="testCases">
 					<div class="con" th:if="${questForm.getQuestions().isEmpty()}">
-						Q1: <textarea class="yellow" name="input-1" placeholder="Put your question here..." rows="3" cols="80"></textarea>
+						<span style="display:inline"> 
+						Q1:
+						<textarea class="yellow" name="input-1" placeholder="Put your question here..." rows="3" cols="80"></textarea>
+						</span>
 					</div>
 					
 					<div class="con" th:if="${!questForm.getQuestions().isEmpty()}" th:each="question : ${questions}">
