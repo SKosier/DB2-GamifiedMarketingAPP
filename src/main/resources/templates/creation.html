@@ -31,6 +31,10 @@
 	    	    $(this).parent('div.con').remove()
 	    	  });
 	    	  
+	    	  $("#file-upload").change(function(){
+	    		  $("#file-name").text(this.files[0].name);
+	    		});
+	    	  
 	    	  
 	    	  $("#text").bind('keyup', function() {
 	    		    $("#preview").text($(this).val());
@@ -73,15 +77,16 @@
 		<hr class="three">
 		<div class="colholder">		
 
-			<div class="cube">
+			<div class="cube left">
 		
 		<form action="creation" method="post" enctype="multipart/form-data">
 			<p><b>Upload photo of product of the day: </b></p>
-			<label class="formControls fcyel">
-				<input type="file" name="photo" accept="image/*" required>
+			<form><label for="file-upload" class="formControls fcyel">
+				<input id="file-upload" type="file" name="photo" accept="image/*" required>
 				Upload file
 			</label>
-			
+			<label id="file-name"></label>
+			</form>
 		
 			<br><br><p><b>Insert name of the product: </b><br></p>
 			<div th:if="${questForm.containsError('name')}">
@@ -97,9 +102,12 @@
 			  <input type="radio" id="today" name="date" value="0" checked="checked" >
 			  <label for="today">Today</label><br>
 			  <input type="radio" id="tomorrow" name="date" value="1">
-			  <label for="age2">Tomorrow</label><br><br>
-	
-	        <b>Add your marketing questions about the product of the day</b><br>
+			  <label for="age2">Tomorrow</label><br><br><br><br>
+			<b>Add your marketing questions about the product of the day:</b><br>
+			</div>
+			
+			<div class="cube">
+	        
 				<div th:if="${questForm.containsError('questions')}">
 			   		<p style="color:red;" class="error" th:each="err : ${questForm.getError('questions')}" th:text="${err}"></p>
 			  	 </div><br>
