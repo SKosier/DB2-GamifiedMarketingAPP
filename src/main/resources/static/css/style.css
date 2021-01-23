@@ -75,6 +75,10 @@ hr.two{
 	font-family: 'Ubuntu', sans-serif;
 	text-align:center;
 }
+
+.errorPage{
+	text-align:center;
+	}
 .tablica {
 	table-layout: auto;
 	padding: 15px;
