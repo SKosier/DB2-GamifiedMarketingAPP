@@ -80,6 +80,7 @@ public class Initializer {
 		}
 
 		Date today = new Date(System.currentTimeMillis());
+		//Date today = new Date(System.currentTimeMillis() - 2*1000*60*60*24);
 		q1.setDate(today);
 		q1.setProductName("Birra Moretti");
 		q1.setPhoto("moretti.jpg");

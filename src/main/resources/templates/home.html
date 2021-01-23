@@ -15,6 +15,7 @@
 		<div class="info">
 			<p class="uname" th:text="'Logged in as ' + ${session.currentUserName}"></p>
 			<div th:if="${session.isAdministrator}">
+				<p>Admin features</p>
 				<span>
 				<a class="formControls fcyel" href="/creation">Creation</a>
 				<a class="formControls fcyel" href="/deletion">Deletion</a>
@@ -39,11 +40,18 @@
 				<!--  <img src="../images/test.png"/>		 -->
 				</div>
 			</div>
-			<hr class="three">
+
 			<div class="cube">
+				<br><br>
+					<div th:if="${questToday == null}">
+					There is no questionnaire for today! <br>
+					But come back tomorrow!
+				</div>
+				<div th:unless="${questToday == null}">
+							<hr class="three">
+
 				<h1>Read reviews</h1>
 	
-		<br>
 		<div class="wrapper">
 		<div class="table">
 		<div class="row header yellow">
@@ -67,17 +75,10 @@
 		</div>
 		</div>
 		</div>
-
-				<br><br>
-					<div th:if="${questToday == null}">
-					There is no questionnaire for today! <br>
-					But come back tomorrow!
-				</div>
-				<div th:unless="${questToday == null}">
-								<p>Check the today's leaderboard</p>
+								<p>Check the today's leaderboard!</p>
 				<a class="formControls fcyel" href="/leaderboard">Leaderboard</a>
 				<div th:if="${submittedAnswer == null}">
-					<p>Fill out the questionnaire for the product of the day </p>
+					<p>Fill out the questionnaire for the product of the day!</p>
 					<a class="formControls fcyel" href="/questionnaire">Questionnaire</a>
 				</div>
 				<div th:if="${submittedAnswer != null}">
