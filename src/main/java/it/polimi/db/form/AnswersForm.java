@@ -51,8 +51,7 @@ public class AnswersForm {
 			}
 			
 			for(String word : answer.split(" ")) {
-				System.out.println(word);
-				if(CWSingleton.bannedWords.contains(word)) {
+				if(CWSingleton.bannedWords.contains(word.toLowerCase())) {
 					setError("ban", "You wrote innapropriate answer! You are banned!");
 					shouldBan = true;
 					break;
