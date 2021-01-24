@@ -1,3 +1,31 @@
+24.01.21.
+
+From before:
+
+-> mysql baza
+svatko od nas mora imati instaliran mysql (npr mozete slijediti one njihove upute an beepu)
+baze nam se moraju zvati kao i ovdje u projektu (buduci da ju svatko koristi lokalno, a nemamo jos deployano negdje na serveru, sto ni ne trebamo)
+u application.properties mozete naci info o tome kako sam ih ja nazvala i kako se zove user koji se prikljucuje na bazu:
+BAZA: gmapp
+User: gmapp_user
+Pass: gmapp_pass
+
+Znaci, kada cete konfigurirati mysql shemu, dodajte bazu GMAPP i napravite Usera gmapp_user kojem cete dati privilegije nad bazom
+Imate tu u tekstu sto da tocno upisete u cmd: https://spring.io/guides/gs/accessing-data-mysql/
+
+NOVO:
+Application properties sadrzi dva odlomka. Prve naredbe su za h2-bazu, a ostale za mysql bazu; odkomentiraje druge i zakomentirajte prve
+Moguce da shema sadrzi neke stvari od prije koje vam sada ne trebaju jer smo mijenjali, sve tablice koje su viska (npr questionnaire_question i sl) 
+dropajte da vam DB bude "cista"  (potrebno napraviti samo jednom i tjt)
+
+drop table table_name;
+
+To je to. Ako ne radi znaci da vam user nema dovoljne ovlasti. Upalite aplikaciju, probajte napraviti questionnaire, registrirati nekog novog, bannati
+i vidjeti kak se to vidi u mysql bazi.
+Ako se nes dogodi sutra, samo se prebacite nazad na h2 bazu.
+
+
+//*****************************************************************************************************************
 28.12.2020.
 
 Toma i Robi
