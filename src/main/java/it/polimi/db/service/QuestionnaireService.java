@@ -13,6 +13,8 @@ public interface QuestionnaireService {
 	
 	Optional<Questionnaire> findByDate(Date date);
 	
+	List<Questionnaire> findPreviousQuestionnaires();
+	
 	Questionnaire createQuestionnaire(Questionnaire questionnaire);
 
 	Questionnaire updateQuestionnaire(Questionnaire questionnaire);

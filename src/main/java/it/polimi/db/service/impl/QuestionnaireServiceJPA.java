@@ -52,4 +52,9 @@ public class QuestionnaireServiceJPA implements QuestionnaireService {
 		 questionnaireRepo.delete(questionnaire);
 		return questionnaire;
 	}
+
+	@Override
+	public List<Questionnaire> findPreviousQuestionnaires() {
+		return questionnaireRepo.findPreviousQuestionnaires();
+	}
 }

@@ -62,7 +62,7 @@ public class InspectionController {
 	
 	@ModelAttribute("questionnaireList")
 	public List<Questionnaire> getQuestionnaireList() {
-		return questionnaireService.listAll();
+		return questionnaireService.findPreviousQuestionnaires();
 	}
 	
 	@RequestMapping("/submit")

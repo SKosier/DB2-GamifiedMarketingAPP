@@ -74,16 +74,18 @@ public class Initializer {
 				"Do you think this product is pricey?", 
 				"What would you suggest us regarding the product?"};
 		
+		List<Question> questions = new ArrayList<>();
 		for (int i = 0; i < list.length; i++) {
 			Question qu = new Question();
 			qu.setQuestion(list[i]);
 			qService.createQuestion(qu);
 
 			if (i % 2 == 0) {
-				q1.addQuestion(qu);		
+				q1.addQuestion(qu);
 			
 			} else {
 				q2.addQuestion(qu);
+				questions.add(qu);
 			}
 		}
 
@@ -97,12 +99,16 @@ public class Initializer {
 		q2.setProductName("Ichnusa");
 		q2.setPhoto("Birra Ichnusa.jpg");
 		
-		q3.setDate(new Date(System.currentTimeMillis() + 3*1000*60*60*24));
+		q3.setDate(new Date(System.currentTimeMillis() - 2*1000*60*60*24));
 		q3.setProductName("Birra Peroni");
 		q3.setPhoto("peroni.png");
 		
-		createAnswers(q2, users);
-		users.stream().forEach(u -> q2.addParticipant(u));
+		createAnswers(q2, users, questions);
+		createAnswers3(q3, users.get(3));
+		
+		for(int i = 0; i < users.size()-1; i++) {
+			q2.addParticipant(users.get(i));
+		}
 		
 		questionnaireService.updateQuestionnaire(q1);
 		questionnaireService.updateQuestionnaire(q2);
@@ -124,15 +130,34 @@ public class Initializer {
 		CWSingleton.setBannedWords(bw);
 	}
 
-	private void createAnswers(Questionnaire q2, List<User> users) {
-		for(User u : users) {
-			for(Question q : q2.getQuestions()) {
+	private void createAnswers3(Questionnaire q3, User user) {
+		Question q = new Question();
+		q.setQuestion("Do you like our different bottle design?");
+		q3.addQuestion(q);
+		
+		Statistic stat = new Statistic();
+		stat.setCanceled(true);
+		stat.setQuestionnaireId(q3.getId());
+		stat.setUser_id(user.getId());
+		statService.createStatistic(stat);
+		
+		q3.addParticipant(user);
+	}
+
+	private void createAnswers(Questionnaire q2, List<User> users, List<Question> questions) {
+		String[][] answers = {{"Yes, I would buy it", "No, it's not for me", "Yes"}, 
+							 {"Price is okay", "Price is reasonable", "It is affordable"}};
+		
+		for(int i = 0; i < users.size()-2; i++) {
+			int j = 0;
+			for(Question q : questions) {
 				Answer a = new Answer();
 				a.setQuestionId(q.getId());
 				a.setQuestionnaireId(q2.getId());
-				a.setUserId(u.getId());
-				a.setText("answer by: " + u.getUsername() + " for question " + q.getQuestion());
+				a.setUserId(users.get(i).getId());
+				a.setText(answers[j][i]);
 				answerService.createAnswer(a);
+				++j;
 			}
 			Statistic stat = new Statistic();
 			stat.setAge("YOUNG ADULT");
@@ -140,9 +165,15 @@ public class Initializer {
 			stat.setExpertiseLevel("MEDIUM");
 			stat.setQuestionnaireId(q2.getId());
 			stat.setSex("O");
-			stat.setUser_id(u.getId());
+			stat.setUser_id(users.get(i).getId());
 			statService.createStatistic(stat);
 		}
+		
+		Statistic stat = new Statistic();
+		stat.setCanceled(true);
+		stat.setQuestionnaireId(q2.getId());
+		stat.setUser_id(users.get(users.size()-1).getId());
+		statService.createStatistic(stat);
 	}
 
 	private User makeUser(String name) {
