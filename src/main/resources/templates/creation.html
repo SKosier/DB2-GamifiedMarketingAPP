@@ -78,16 +78,16 @@
 		<hr class="three">
 		<div class="colholder">		
 
-			<div class="cube left">
+			<div class="cube">
 		
 		<form action="creation" method="post" enctype="multipart/form-data">
 			<p><b>Upload photo of product of the day: </b></p>
-			<form><label for="file-upload" class="formControls fcyel">
+			<label for="file-upload" class="formControls fcyel">
 				<input id="file-upload" type="file" name="photo" accept="image/*" required>
 				Upload file
 			</label>
 			<label id="file-name"></label>
-			</form>
+			
 		
 			<br><br><p><b>Insert name of the product: </b><br></p>
 			<div th:if="${questForm.containsError('name')}">
@@ -103,11 +103,10 @@
 			  <input type="radio" id="today" name="date" value="0" checked="checked" >
 			  <label for="today">Today</label><br>
 			  <input type="radio" id="tomorrow" name="date" value="1">
-			  <label for="age2">Tomorrow</label><br><br><br><br>
+			  <label for="age2">Tomorrow</label><br><br>
 			<b>Add your marketing questions about the product of the day:</b><br>
-			</div>
-			
-			<div class="cube">
+
+		
 	        
 				<div th:if="${questForm.containsError('questions')}">
 			   		<p style="color:red;" class="error" th:each="err : ${questForm.getError('questions')}" th:text="${err}"></p>
@@ -123,16 +122,16 @@
 					
 					<div class="con" th:if="${!questForm.getQuestions().isEmpty()}" th:each="question : ${questions}">
 						Q[[${questions.indexOf(question)+1}]]:  
-						<textarea th:name="'input-' + ${questions.indexOf(question)+1}" placeholder="Question" rows="3" cols="80" th:text="${question}"></textarea>
+						<textarea class="yellow" th:name="'input-' + ${questions.indexOf(question)+1}" placeholder="Question" rows="3" cols="80" th:text="${question}"></textarea>
 				       	<input th:if="${questions.indexOf(question)+1 > 1}" type="button" class="formControls fcyel" value="Remove"/><br>
 					</div>
 				</div>
 			<br>
 			<input id="btnAdd" class="formControls fcyel" type="button" value="Add" /><br><br>
 			  <button type="submit" class="formControls fcyel" name="method" value="Save">Save</button>
-			  <button type="submit" class="formControls fcyel" name="method" value="Cancel">Cancel</button>
+			  <button type="submit" class="formControls fcyel" name="method" value="Cancel" formnovalidate>Cancel</button>
 		</form>
-	</div>
+		</div>
 	
 	<div th:unless="${session.isAdministrator}">
 		You are not administrator!
